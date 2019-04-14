@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+declare selected_key
+selected_key=$(yubioath | tr '[:upper:]' '[:lower:]' | awk -F ":" '{print $1}' | dmenu)
+
+declare selected_key_code
+selected_key_code=$(yubioath "${selected_key}" | awk -F ':' '{ printf "%s", $2 }' | awk '{ printf "%s", $2 }')
+
+printf "%s" "${selected_key_code}" | xdotool type --file -

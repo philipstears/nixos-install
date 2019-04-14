@@ -1,0 +1,2 @@
+1. Optimize xmobar volume checking - pactl subscribe + a fifo?
+
