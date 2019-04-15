@@ -64,11 +64,6 @@ in
     docker-gc
     docker-ls
 
-    # Terraform - this should really be in project shells I think
-    terraform
-    terraform-providers.aws
-    terraform-landscape
-
     # General web things
     firefox-bin
     google-chrome
