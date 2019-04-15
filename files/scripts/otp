@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# If the yubikey has been used for GPG/SSH tasks, then yubioath doesn't work,
+# so restart the smartcard daemon
+sudo systemctl restart pcscd
+
 declare selected_key
 selected_key=$(yubioath | tr '[:upper:]' '[:lower:]' | awk -F ":" '{print $1}' | dmenu)
 

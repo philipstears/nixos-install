@@ -1,6 +1,6 @@
 # vim: set sts=2 ts=2 sw=2 expandtab :
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   home-manager = builtins.fetchGit {
@@ -256,6 +256,18 @@ in
 
   # So the key chain is unlocked on login
   security.pam.services.lightdm.enableGnomeKeyring = true;
+
+  security.sudo.extraRules = lib.mkAfter [
+    {
+      groups = [ "stears" ];
+      commands = [
+        {
+          command = ''${pkgs.systemd}/bin/systemctl restart pcscd'';
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
 
   services.compton = {
     enable          = true;
