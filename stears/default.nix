@@ -101,6 +101,12 @@ in
       extraConfig = (builtins.readFile ./files/vimrc);
     };
 
+    # Need bash enabled so that direnv can add its
+    # config
+    programs.bash = {
+      enable = true;
+    };
+
     # Per-user ZSH stuff, builds on the global bits
     programs.zsh = {
       enable = true;
