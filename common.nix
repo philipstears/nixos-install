@@ -193,16 +193,25 @@ in
   networking.firewall.allowPing = true;
 
   networking.firewall.allowedTCPPorts = [
-    22 5060 30080 30443
+    22
+    5060
+    30080
+    30443
   ];
 
   networking.firewall.allowedUDPPorts = [
-    79 5060
+    79
+    5060
   ];
 
   networking.firewall.allowedUDPPortRanges = [
     { from = 4000; to = 4100; }
   ];
+
+  # Allow docker0 to bypass the firewall
+  networking.firewall.extraCommands = ''
+    ip46tables -I nixos-fw 1 -i docker0 -j nixos-fw-accept
+  '';
 
   networking.networkmanager.enable = true;
 
