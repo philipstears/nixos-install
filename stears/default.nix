@@ -69,6 +69,9 @@ in
       # My stuff
       private.packages.jump
       private.packages.project
+
+      # So we get access to udiskie-mount
+      udiskie
     ];
 
     # So Skype doesn't log out on each restart -
@@ -181,6 +184,10 @@ in
         set -g default-terminal "screen-256color"
       '';
       };
+
+    services.udiskie = {
+      enable = true;
+    };
 
     # xsession.initExtra = ''
     #   ${pkgs.feh}/bin/feh --bg-fill ~/.config/wallpapers/towelday2013-A.jpg
