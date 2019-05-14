@@ -33,8 +33,11 @@ in
     home.packages = with pkgs; [
       ktouch
       spotify
+      playerctl
       imagemagick
       electrum
+
+      khal
 
       ffmpeg-full
       vlc
@@ -42,6 +45,10 @@ in
       audacity
       linphone
       ekiga
+
+      gitAndTools.tig
+      tmuxPlugins.resurrect
+      tmuxPlugins.sessionist
 
       powerline-fonts
 

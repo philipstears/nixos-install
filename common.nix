@@ -58,6 +58,7 @@ in
     jq
     awscli
     unzip
+    dnsutils # dig
 
     # Docker - until I can obviate it
     docker
