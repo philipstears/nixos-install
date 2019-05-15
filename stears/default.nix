@@ -248,6 +248,10 @@ in
                 , ((shiftMask                 , xF86XK_AudioRaiseVolume), spawn "amixer -q set Capture 5%+")
                 , ((shiftMask                 , xF86XK_AudioLowerVolume), spawn "amixer -q set Capture 5%-")
                 , ((shiftMask                 , xF86XK_AudioMute),        spawn "amixer -q set Capture toggle")
+                , ((0                         , xF86XK_AudioNext),        spawn "${pkgs.playerctl}/bin/playerctl next")
+                , ((0                         , xF86XK_AudioPrev),        spawn "${pkgs.playerctl}/bin/playerctl previous")
+                , ((0                         , xF86XK_AudioPlay),        spawn "${pkgs.playerctl}/bin/playerctl play-pause")
+                , ((0                         , xF86XK_AudioStop),        spawn "${pkgs.playerctl}/bin/playerctl stop")
 
                 , (((modMask originalConfig)  , xK_l),                    spawn "xdg-screensaver lock")
                 , (((modMask originalConfig)  , xK_o),                    spawn "otp")
