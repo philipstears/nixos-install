@@ -65,6 +65,9 @@ in
     docker-gc
     docker-ls
 
+    # Virtualization
+    virtualbox
+
     # General web things
     firefox-bin
     google-chrome
@@ -133,6 +136,11 @@ in
 
   virtualisation = {
     docker.enable = true;
+    virtualbox = {
+      host = {
+        enable = true;
+      };
+    };
   };
 
   # Yubikey stuff
