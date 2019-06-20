@@ -59,6 +59,7 @@ in
     awscli
     unzip
     dnsutils # dig
+    manpages
 
     # Docker - until I can obviate it
     docker
