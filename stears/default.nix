@@ -185,10 +185,10 @@ in
         set -g history-limit 16384
 
         # Enable true-color for terminal type under which tmux runs
-        set -ga terminal-overrides ",screen-256color:Tc"
+        set -ga terminal-overrides ",xterm-256color:Tc"
 
         # The terminal type to surface inside of tmux
-        set -g default-terminal "screen-256color"
+        set -g default-terminal "xterm-256color"
       '';
       };
 
