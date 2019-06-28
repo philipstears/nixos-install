@@ -8,7 +8,7 @@ Config
   , sepChar = "%"
   , alignSep = "}{"
 
-  , template = "%StdinReader% | %cpu% (%coretemp%) | %memory% | %battery% | Wifi: (%wlp2s0wi%) %wlp2s0% }{ KBL: %kb-layout% | Out Vol: %out-vol% | In Vol: %in-vol% | <fc=#ee9a00>%date%</fc>"
+  , template = "%StdinReader% | %cpu% %coretemp% | %memory% | %battery% | Wi: (%wlp2s0wi%) %wlp2s0% }{ KB: %kb-layout% | Spk: %out-vol% | Mic: %in-vol% | <fc=#ee9a00>%date%</fc>"
 
   , commands =
     [ Run StdinReader
@@ -28,23 +28,11 @@ Config
 	    ]
 	    10
 
-    , Run CpuFreq
-      [ "-t", "<cpu0>Ghz <cpu1>GHz <cpu2>Ghz <cpu3>Ghz <cpu4>Ghz <cpu5>Ghz <cpu6>Ghz <cpu7>Ghz"
-      , "-d", "2"
-      , "-M", "4"
-      , "-L", "0"
-      , "-H", "5"
-      , "-l", "lightblue"
-      , "-n", "white"
-      , "-h", "red"
-      ]
-      50
-
     , Run Memory ["-t","Mem: <usedratio>%", "-L", "0", "-M", "40", "-H", "65",  "--low", "darkgreen", "--normal", "darkgreen", "--high", "red" ] 10
 
     , Run Date "%a %Y-%m-%d %H:%M:%S" "date" 10
 
-    , Run CoreTemp ["-t", "<core0>C <core1>C <core2>C <core3>C <core4>C", "-L", "40", "-H", "80", "--low", "lightblue", "--normal", "darkgreen", "-h", "red"] 50
+    , Run CoreTemp ["-t", "<core0>C (<core1>C <core2>C <core3>C <core4>C)", "-L", "40", "-H", "80", "--low", "lightblue", "--normal", "darkgreen", "-h", "red"] 50
 
     , Run Com "st-audio-get-master-volume" [] "out-vol" 10
     , Run Com "st-audio-get-capture-volume" []  "in-vol" 10
