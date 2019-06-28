@@ -36,9 +36,11 @@ in
       playerctl
       imagemagick
       electrum
+      gimp
 
       khal
 
+      mediainfo
       ffmpeg-full
       vlc
       sox
