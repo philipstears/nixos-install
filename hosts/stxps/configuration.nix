@@ -32,4 +32,41 @@
   hardware.cpu.intel.updateMicrocode = true;
 
   networking.hostName = "stxps";
+
+  # Open ports in the firewall.
+  networking.firewall.allowPing = true;
+
+  networking.firewall.allowedTCPPorts = [
+    22
+    5060
+    30080
+    30443
+  ];
+
+  networking.firewall.allowedUDPPorts = [
+    79
+    5060
+  ];
+
+  networking.firewall.allowedUDPPortRanges = [
+    { from = 4000; to = 4100; }
+  ];
+
+  # Enable UPower (needed for keyboard backlight control)
+  services.upower.enable = true;
+  systemd.services.upower.enable = true;
+
+  # Enable touchpad support.
+  services.xserver.libinput.enable = true;
+
+  # VAAPI
+  # https://nixos.wiki/wiki/Accelerated_Video_Playback
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
 }

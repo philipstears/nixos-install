@@ -199,25 +199,6 @@ in
     challengeResponseAuthentication = false;
   };
 
-  # Open ports in the firewall.
-  networking.firewall.allowPing = true;
-
-  networking.firewall.allowedTCPPorts = [
-    22
-    5060
-    30080
-    30443
-  ];
-
-  networking.firewall.allowedUDPPorts = [
-    79
-    5060
-  ];
-
-  networking.firewall.allowedUDPPortRanges = [
-    { from = 4000; to = 4100; }
-  ];
-
   # Allow docker0 to bypass the firewall
   networking.firewall.extraCommands = ''
     ip46tables -I nixos-fw 1 -i docker0 -j nixos-fw-accept
@@ -297,24 +278,6 @@ in
   };
 
   # services.xserver.xkbOptions = "eurosign:e";
-
-  # Enable UPower (needed for keyboard backlight control)
-  services.upower.enable = true;
-  systemd.services.upower.enable = true;
-
-  # Enable touchpad support.
-  services.xserver.libinput.enable = true;
-
-  # VAAPI
-  # https://nixos.wiki/wiki/Accelerated_Video_Playback
-  hardware.opengl = {
-    enable = true;
-    extraPackages = with pkgs; [
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-  };
 
   # Enable passwd and co.
   users.mutableUsers = true;
