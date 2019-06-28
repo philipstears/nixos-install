@@ -13,6 +13,9 @@
 
       # Common things
       ./../../common
+
+      # Hardware & user specific things
+      ./stears
     ];
 
   # Use the systemd-boot EFI boot loader - need

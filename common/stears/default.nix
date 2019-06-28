@@ -170,8 +170,6 @@ in
       lockCmd = "${pkgs.i3lock}/bin/i3lock -i ~/.config/lockscreen/towelday2013-A.png";
     };
 
-    home.file.".xmobarrc".source = ./files/xmobarrc;
-
     home.file.".config/wallpapers" = {
       source = ./files/wallpapers;
       recursive = true;
