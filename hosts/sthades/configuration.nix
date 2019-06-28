@@ -31,5 +31,5 @@
 
   hardware.cpu.intel.updateMicrocode = true;
 
-  networking.hostName = "stxps";
+  networking.hostName = "sthades";
 }
