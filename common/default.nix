@@ -55,6 +55,8 @@ in
     bashCompletion
     wireshark
     wireshark-cli
+    tcpdump
+    ethtool
     jq
     awscli
     unzip
