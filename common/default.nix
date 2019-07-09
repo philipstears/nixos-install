@@ -19,6 +19,8 @@ in
       ./stears
     ];
 
+  boot.kernelPackages = pkgs.linuxPackages_5_1;
+
   networking.extraHosts = private.configuration.hosts;
 
   # Select internationalisation properties.
