@@ -40,10 +40,11 @@
   networking.firewall.allowPing = true;
 
   networking.firewall.allowedTCPPorts = [
-    22
-    5060
-    30080
-    30443
+    22    # SSH
+    5060  # SIP
+    30080 # Local HTTP
+    30443 # Local HTTPS
+    30666 # Random things
   ];
 
   networking.firewall.allowedUDPPorts = [

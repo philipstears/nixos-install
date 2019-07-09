@@ -57,6 +57,10 @@ in
     bashCompletion
     wireshark
     wireshark-cli
+    iperf
+    pv
+    mbuffer
+    openssl
     tcpdump
     ethtool
     jq
@@ -64,6 +68,8 @@ in
     unzip
     dnsutils # dig
     manpages
+    pciutils usbutils
+    fwupd
 
     # Docker - until I can obviate it
     docker
@@ -150,6 +156,12 @@ in
 
   # Yubikey stuff
   services.pcscd.enable = true;
+
+  # It's useful to be able to manage firmware
+  services.fwupd.enable = true;
+
+  # And thunderbolt things
+  services.hardware.bolt.enable = true;
 
   programs = {
     ssh.startAgent = false;
