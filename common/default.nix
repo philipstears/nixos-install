@@ -102,6 +102,9 @@ in
     feh
     libreoffice-still
 
+    # Hardware Acceleration Utilities
+    libva-utils
+
     # Desktop Env Support Utilities
     ( writeScriptBin "otp" (builtins.readFile ./files/scripts/otp) )
 
