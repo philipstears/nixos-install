@@ -70,6 +70,7 @@ in
     manpages
     pciutils usbutils
     fwupd
+    shellcheck
 
     # Docker - until I can obviate it
     docker
