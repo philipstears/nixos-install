@@ -262,6 +262,9 @@ in
                 , (((modMask originalConfig)  , xK_s),                    spawn "gnome-screenshot -i")
                 , (((modMask originalConfig)  , xK_c),                    spawn "mate-calc")
                 , (((modMask originalConfig)  , xK_n),                    spawn "networkmanager_dmenu")
+
+                , (((modMask originalConfig)  , xK_e),                    spawn "st-kb-english")
+                , (((modMask originalConfig)  , xK_d),                    spawn "st-kb-german")
                 ]
 
           toggleStrutsKey XConfig {XMonad.modMask = modMask} =

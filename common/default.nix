@@ -135,13 +135,25 @@ in
 
     ( writeScriptBin "st-kb-get-layout" ''
        #!${pkgs.bash}/bin/bash
-       setxkbmap -query | awk '/^layout:/ { printf "%s", $2 }'
+       ${pkgs.xorg.setxkbmap}/bin/setxkbmap -query | awk '/^layout:/ { printf "%s", $2 }'
     ''
     )
 
     ( writeScriptBin "st-gpg-update-startup-tty" ''
        #!${pkgs.bash}/bin/bash
        echo UPDATESTARTUPTTY | gpg-connect-agent
+    ''
+    )
+
+    ( writeScriptBin "st-kb-german" ''
+       #!${pkgs.bash}/bin/bash
+       ${pkgs.xorg.setxkbmap}/bin/setxkbmap -layout de
+    ''
+    )
+
+    ( writeScriptBin "st-kb-english" ''
+       #!${pkgs.bash}/bin/bash
+       ${pkgs.xorg.setxkbmap}/bin/setxkbmap -layout us
     ''
     )
   ];
