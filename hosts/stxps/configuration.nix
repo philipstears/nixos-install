@@ -45,6 +45,7 @@
     30080 # Local HTTP
     30443 # Local HTTPS
     30666 # Random things
+    3000  # MEE
   ];
 
   networking.firewall.allowedUDPPorts = [
