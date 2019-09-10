@@ -17,7 +17,7 @@ in
 
   users.users.stears = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "wireshark" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "wireshark" "video" ];
     createHome = true;
     home = "/home/stears";
     uid = 1000;
@@ -55,7 +55,7 @@ in
       powerline-fonts
 
       # It's useful to be able to control my backlight
-      xorg.xbacklight
+      acpilight
 
       # The best "pure" locker that I've
       # found so far

@@ -73,4 +73,7 @@
       libvdpau-va-gl
     ];
   };
+
+  # Backlight Control
+  hardware.brightnessctl.enable = true;
 }
