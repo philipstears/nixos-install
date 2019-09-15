@@ -71,6 +71,7 @@ in
     pciutils usbutils
     fwupd
     shellcheck
+    nixops
 
     # Docker - until I can obviate it
     docker
