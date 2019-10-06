@@ -34,7 +34,7 @@ in
 
   # Set your time zone.
   services.timesyncd.enable = true; # the default, but explicitness is a good thing
-  time.timeZone = "Europe/Vienna";
+  time.timeZone = "Europe/London";
 
   # Allow non-free things like firefox-bin
   nixpkgs.config.allowUnfree = true;
