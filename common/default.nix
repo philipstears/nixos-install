@@ -163,7 +163,11 @@ in
   environment.pathsToLink = [ "/share/zsh" ];
 
   virtualisation = {
-    docker.enable = true;
+    docker = {
+      enable = true;
+      enableOnBoot = false;
+      extraOptions = "--ipv6";
+    };
     virtualbox = {
       host = {
         enable = true;
