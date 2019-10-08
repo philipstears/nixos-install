@@ -166,7 +166,7 @@ in
     docker = {
       enable = true;
       enableOnBoot = false;
-      extraOptions = "--ipv6";
+      # extraOptions = "--ipv6";
     };
     virtualbox = {
       host = {
