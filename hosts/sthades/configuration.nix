@@ -13,6 +13,9 @@
 
       # Common things
       ./../../common
+
+      # Hardware & user specific things
+      ./stears
     ];
 
   # Use the systemd-boot EFI boot loader - need
@@ -32,4 +35,42 @@
   hardware.cpu.intel.updateMicrocode = true;
 
   networking.hostName = "sthades";
+
+  # Name interfaces
+  services.udev.extraRules =
+    ''
+      KERNEL=="eth*", ATTR{address}=="54:b2:03:04:7d:68", NAME="trusted"
+      KERNEL=="eth*", ATTR{address}=="54:b2:03:04:7d:67", NAME="unused"
+    '';
+
+  # Open ports in the firewall.
+  networking.firewall.allowPing = true;
+
+  networking.firewall.interfaces.trusted = {
+    allowedTCPPorts = [
+      22    # SSH
+      5060  # SIP
+      30080 # Local HTTP
+      30443 # Local HTTPS
+    ];
+
+    allowedUDPPorts = [
+      5060  # SIP
+    ];
+
+    allowedUDPPortRanges = [
+      { from = 4000; to = 4100; } # RTP
+    ];
+  };
+
+  # VAAPI
+  # https://nixos.wiki/wiki/Accelerated_Video_Playback
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
 }

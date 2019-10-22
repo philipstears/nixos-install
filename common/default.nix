@@ -234,6 +234,7 @@ in
     enable = true;
     passwordAuthentication = false;
     challengeResponseAuthentication = false;
+    openFirewall = false;
   };
 
   # Allow docker0 to bypass the firewall
