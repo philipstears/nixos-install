@@ -19,7 +19,7 @@ in
       ./stears
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_5_1;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.extraHosts = private.configuration.hosts;
 

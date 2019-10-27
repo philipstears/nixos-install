@@ -8,7 +8,7 @@ Config
   , sepChar = "%"
   , alignSep = "}{"
 
-  , template = "%StdinReader% | %cpu% %coretemp% | %memory% | %battery% | Wi: (%wlp2s0wi%) %wlp2s0% }{ KB: %kb-layout% | Spk: %out-vol% | Mic: %in-vol% | <fc=#ee9a00>%date%</fc>"
+  , template = "%StdinReader% | %cpu% %coretemp% | %memory% | TL: %trusted% }{ KB: %kb-layout% | Spk: %out-vol% | Mic: %in-vol% | <fc=#ee9a00>%date%</fc>"
 
   , commands =
     [ Run StdinReader
@@ -35,23 +35,6 @@ Config
     , Run Com "st-audio-get-master-volume" [] "out-vol" 10
     , Run Com "st-audio-get-capture-volume" []  "in-vol" 10
     , Run Com "st-kb-get-layout" []  "kb-layout" 10
-
-    , Run Battery
-      [ "--template" , "Batt: <acstatus>"
-      , "--Low"      , "10"        -- units: %
-      , "--High"     , "80"        -- units: %
-      , "--low"      , "darkred"
-      , "--normal"   , "darkorange"
-      , "--high"     , "darkgreen"
-
-      , "--" -- battery specific options
-                -- discharging status
-                , "-o"	, "<left>% (<timeleft>)"
-                -- AC "on" status
-                , "-O"	, "<fc=#dAA520>Charging</fc>"
-                -- charged status
-                , "-i"	, "<fc=#006000>Charged</fc>"
-      ] 50
     ]
   }
 
