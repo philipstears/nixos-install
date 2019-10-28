@@ -56,6 +56,7 @@
 
     allowedUDPPorts = [
       5060  # SIP
+      5353  # mDNS
     ];
 
     allowedUDPPortRanges = [
