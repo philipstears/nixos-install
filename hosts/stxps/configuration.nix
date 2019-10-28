@@ -51,6 +51,7 @@
   networking.firewall.allowedUDPPorts = [
     79
     5060
+    5353 # mDNS
   ];
 
   networking.firewall.allowedUDPPortRanges = [
