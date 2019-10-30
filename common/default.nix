@@ -85,6 +85,7 @@ in
     google-chrome
     skypeforlinux
     slack
+    zoom-us
 
     # Security
     gnupg
