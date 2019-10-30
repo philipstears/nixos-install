@@ -19,7 +19,8 @@ in
       ./stears
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Can't get this working with virtualbox
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.extraHosts = private.configuration.hosts;
 
