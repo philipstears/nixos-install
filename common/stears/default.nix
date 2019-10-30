@@ -17,7 +17,7 @@ in
 
   users.users.stears = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "wireshark" "video" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "wireshark" "video" "vboxusers" ];
     createHome = true;
     home = "/home/stears";
     uid = 1000;

@@ -36,7 +36,8 @@ in
   services.timesyncd.enable = true; # the default, but explicitness is a good thing
   time.timeZone = "Europe/London";
 
-  # Allow non-free things like firefox-bin
+  # Reasons:
+  #   virtualbox guest extensions
   nixpkgs.config.allowUnfree = true;
 
   # List packages installed in system profile. To search, run:
@@ -77,9 +78,6 @@ in
     docker
     docker-gc
     docker-ls
-
-    # Virtualization
-    virtualbox
 
     # General web things
     firefox-bin
@@ -171,6 +169,10 @@ in
     virtualbox = {
       host = {
         enable = true;
+
+        # NOTE: This means that virtualbox needs compiling from source, which
+        # burns some CPU for a while
+        enableExtensionPack = true;
       };
     };
   };
