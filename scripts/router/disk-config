@@ -1,0 +1,2 @@
+DISK=/dev/sda
+SWAP_SIZE=4GiB

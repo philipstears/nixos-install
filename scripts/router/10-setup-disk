@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+set -x
+
+source "$(dirname "${BASH_SOURCE[0]}")/disk-config"
+
+declare -r disk=${DISK}
+declare -r swap_size=${SWAP_SIZE}
+declare -r root_partition=${DISK}1
+declare -r swap_partition=${DISK}2
+
+umount /mnt 2>/dev/null || true
+
+parted "${disk}" -- mklabel msdos
+parted "${disk}" -- mkpart primary 1MiB "-${SWAP_SIZE}"
+parted "${disk}" -- mkpart primary linux-swap "-${SWAP_SIZE}" 100%
+
+mkfs.ext4 -L router "${root_partition}"
+mkswap -L swap "${swap_partition}"
+
+mkdir -p /mnt
+mount "${root_partition}" /mnt
+
+swapon "${swap_partition}"

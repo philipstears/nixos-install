@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+set -x
+
+source "$(dirname "${BASH_SOURCE[0]}")/disk-config"
+
+declare -r disk=${DISK}
+declare -r root_partition=${DISK}1
+
+mkdir -p /mnt
+mount "${root_partition}" /mnt

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+set -x
+
+source "$(dirname "${BASH_SOURCE[0]}")/disk-config"
+
+declare -r esp=${ESP_PARTITION}
+declare -r lvm=${CRYPT_PARTITION}
+declare -r crypt_mapping_name=cryptlvm
+declare -r volume_group_name=main
+
+if [[ ! -d "/dev/${volume_group_name}" ]]; then
+    cryptsetup open "${lvm}" "${crypt_mapping_name}"
+    lvchange -ay "${volume_group_name}"
+fi
+
+# Mount everything!
+mkdir -p /mnt
+mount "/dev/${volume_group_name}/root" /mnt
+
+mkdir -p /mnt/home
+mount "/dev/${volume_group_name}/home" /mnt/home
+
+mkdir -p /mnt/boot
+mount "${esp}" /mnt/boot
