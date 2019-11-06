@@ -25,7 +25,9 @@ in
     shell = "${pkgs.zsh}/bin/zsh";
 
     openssh.authorizedKeys.keys = [
-      (import ./files/philip-pubkey.nix)
+      (import ./files/pubkey-philip-yk.nix)
+      (import ./files/pubkey-philip-kp2a.nix)
+      (import ./files/pubkey-philip-old.nix)
     ];
   };
 

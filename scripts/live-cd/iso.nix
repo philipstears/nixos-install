@@ -13,7 +13,7 @@
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
 
   users.users.root.openssh.authorizedKeys.keys = [
-    (import ../../common/stears/files/philip-pubkey.nix)
+    (import ../../common/stears/files/pubkey-philip-yk.nix)
   ];
 }
 
