@@ -64,6 +64,10 @@
     ];
   };
 
+  networking.vlans = {
+    dmz =   { id = 16; interface = "trusted"; };
+  };
+
   # VAAPI
   # https://nixos.wiki/wiki/Accelerated_Video_Playback
   hardware.opengl = {

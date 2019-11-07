@@ -64,7 +64,6 @@
   };
 
   networking.vlans = {
-    # dmz =   { id = 16; interface = "trusted"; };
     guest = { id = 32; interface = "trusted"; };
     iot =   { id = 48; interface = "trusted"; };
   };
