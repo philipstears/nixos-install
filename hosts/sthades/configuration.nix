@@ -68,6 +68,15 @@
     dmz =   { id = 16; interface = "trusted"; };
   };
 
+  networking.dhcpcd.extraConfig =
+    ''
+      interface trusted
+      metric 100
+
+      interface dmz
+      metric 50
+    '';
+
   # VAAPI
   # https://nixos.wiki/wiki/Accelerated_Video_Playback
   hardware.opengl = {
