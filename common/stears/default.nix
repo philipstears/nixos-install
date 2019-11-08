@@ -1,9 +1,14 @@
 # vim: set sts=2 ts=2 sw=2 expandtab :
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   private = import ../private { inherit pkgs; };
+
+  tmuxPlugins = with pkgs.tmuxPlugins; [
+    resurrect
+    sessionist
+  ];
 in
 {
   imports = [
@@ -32,7 +37,7 @@ in
   };
 
   home-manager.users.stears = {
-    home.packages = with pkgs; [
+    home.packages = (with pkgs; [
       ktouch
       spotify
       playerctl
@@ -51,8 +56,6 @@ in
       ekiga
 
       gitAndTools.tig
-      tmuxPlugins.resurrect
-      tmuxPlugins.sessionist
 
       powerline-fonts
 
@@ -83,7 +86,7 @@ in
 
       # So we get access to udiskie-mount
       udiskie
-    ];
+    ]) ++ tmuxPlugins;
 
     # So Skype doesn't log out on each restart -
     # this starts the gnome-keyring as a user
@@ -195,6 +198,8 @@ in
 
         # The terminal type to surface inside of tmux
         set -g default-terminal "xterm-256color"
+
+        ${lib.concatStrings (map (x: "run-shell ${x.rtp}\n") tmuxPlugins)}
       '';
       };
 
