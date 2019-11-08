@@ -11,6 +11,7 @@
         epkgs:
         [
           epkgs.melpaPackages.use-package
+
           epkgs.melpaPackages.evil
           epkgs.melpaPackages.neotree
           epkgs.melpaPackages.projectile
@@ -25,6 +26,11 @@
 
           epkgs.melpaPackages.pastelmac-theme
           epkgs.melpaPackages.monokai-theme
+
+          # EDTS Requirements
+          epkgs.melpaPackages.eproject
+          epkgs.melpaPackages.auto-complete
+          epkgs.melpaPackages.auto-highlight-symbol
 
           epkgs.melpaPackages.erlang
           epkgs.melpaPackages.company-erlang

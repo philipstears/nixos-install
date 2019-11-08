@@ -48,9 +48,9 @@
 ;; -----------------------------------------------------------------------------
 
 ;; EDTS requirements
-(use-package auto-highlight-symbol :ensure t)
-(use-package eproject :ensure t)
-(use-package auto-complete :ensure t)
+(use-package auto-highlight-symbol)
+(use-package eproject)
+(use-package auto-complete)
 
 ;; Stop EDTS complaining about the fact that it's being loaded directly
 (setq edts-inhibit-package-check t)
