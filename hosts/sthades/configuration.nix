@@ -64,6 +64,11 @@
     ];
   };
 
+  # Allow the router to access services over the DMZ interface
+  networking.firewall.extraCommands = ''
+    iptables -I nixos-fw 1 -i dmz -s 82.68.28.6 -p tcp -m tcp --dport 22 -j nixos-fw-accept
+  '';
+
   networking.vlans = {
     dmz =   { id = 16; interface = "trusted"; };
   };
