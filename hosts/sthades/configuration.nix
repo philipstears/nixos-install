@@ -74,6 +74,7 @@
     iptables -I nixos-fw 1 -i dmz -s 213.95.30.153 -p tcp -m tcp --dport 5060 -j nixos-fw-accept
     iptables -I nixos-fw 1 -i dmz -s 213.95.30.153 -p tcp -m tcp --dport 5061 -j nixos-fw-accept
     iptables -I nixos-fw 1 -i dmz -s 213.95.30.153 -p udp -m udp --dport 4000:4100 -j nixos-fw-accept
+    iptables -I nixos-fw 1 -i dmz -s 213.95.30.103 -p udp -m udp --dport 4000:4100 -j nixos-fw-accept
   '';
 
   networking.vlans = {
