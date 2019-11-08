@@ -98,7 +98,6 @@ in
     gnome3.gnome-screenshot
     mate.mate-calc
     dmenu
-    networkmanager_dmenu
     xclip
     alacritty
     feh
@@ -245,8 +244,6 @@ in
   networking.firewall.extraCommands = ''
     ip46tables -I nixos-fw 1 -i docker0 -j nixos-fw-accept
   '';
-
-  networking.networkmanager.enable = true;
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;

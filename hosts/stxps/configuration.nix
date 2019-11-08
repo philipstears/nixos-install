@@ -78,4 +78,11 @@
 
   # Backlight Control
   hardware.brightnessctl.enable = true;
+
+  # Network Manager
+  environment.systemPackages = with pkgs; [
+    networkmanager_dmenu
+  ];
+
+  networking.networkmanager.enable = true;
 }
