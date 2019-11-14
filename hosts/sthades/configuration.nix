@@ -98,6 +98,15 @@
       vaapiIntel
       vaapiVdpau
       libvdpau-va-gl
+
+      # Rob's fix
+      (pkgs.intel-media-driver.overrideAttrs (oldAttrs: {
+        name = "intel-media-driver";
+        postFixup = ''
+          patchelf --set-rpath "$(patchelf --print-rpath $out/lib/dri/iHD_drv_video.so):${stdenv.lib.makeLibraryPath [ xorg.libX11  ]}" \
+            $out/lib/dri/iHD_drv_video.so
+        '';
+      }))
     ];
   };
 }
