@@ -50,7 +50,7 @@
     allowedTCPPorts = [
       22    # SSH
       5060  # SIP
-      30080 # Local HTTP
+      3080  # Local HTTP
       30443 # Local HTTPS
     ];
 
@@ -63,6 +63,11 @@
       { from = 4000; to = 4100; } # RTP
     ];
   };
+
+  networking.firewall.allowedTCPPorts = [
+    443 # NGINX
+    80  # NGINX
+  ];
 
   networking.firewall.extraCommands = ''
 
@@ -89,6 +94,42 @@
       interface dmz
       metric 50
     '';
+
+  services.nginx = {
+    enable = true;
+
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    recommendedProxySettings = true;
+    recommendedTlsSettings = true;
+
+    # Only allow PFS-enabled ciphers with AES256
+    sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
+
+    commonHttpConfig = ''
+    '';
+
+    virtualHosts = {
+      "d4.philipstears.com" = {
+        forceSSL = true;
+        enableACME = true;
+
+        locations = {
+          "/" = {
+            proxyPass = "http://127.0.0.1:3080/";
+            extraConfig = ''
+              allow 82.68.28.0/29;
+              deny all;
+            '';
+          };
+        };
+      };
+    };
+  };
+
+  security.acme.certs = {
+    "d4.philipstears.com".email = "philip@philipstears.com";
+  };
 
   # VAAPI
   # https://nixos.wiki/wiki/Accelerated_Video_Playback
