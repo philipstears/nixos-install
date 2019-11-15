@@ -10,6 +10,16 @@ let
   };
 
   private = import ./private { inherit pkgs; };
+
+  # Find an extant release here https://repo.skype.com/deb/pool/main/s/skypeforlinux/
+  skypeforlinux_latest_version = "8.54.0.91";
+  skypeforlinux_latest = pkgs.skypeforlinux.overrideAttrs (oldAttrs: {
+    version = skypeforlinux_latest_version;
+    src = pkgs.fetchurl {
+      url = "https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_${skypeforlinux_latest_version}_amd64.deb";
+      sha256 = "1hnha8sqk78zxkjqg62npmg6dymi5fnyj2bmxlwpgi61v3pyxj94";
+    };
+  });
 in
 {
   imports =
@@ -83,7 +93,7 @@ in
     # General web things
     firefox-bin
     google-chrome
-    skypeforlinux
+    skypeforlinux_latest
     slack
     zoom-us
 
