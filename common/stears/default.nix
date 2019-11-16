@@ -48,7 +48,6 @@ in
       khal
 
       mediainfo
-      ffmpeg-full
       vlc
       sox
       audacity
