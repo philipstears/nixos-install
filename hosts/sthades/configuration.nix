@@ -41,6 +41,7 @@
     ''
       KERNEL=="eth*", ATTR{address}=="54:b2:03:04:7d:68", NAME="trusted"
       KERNEL=="eth*", ATTR{address}=="54:b2:03:04:7d:67", NAME="unused"
+      KERNEL=="eth*", ATTR{address}=="00:30:93:10:19:ad", NAME="sonnet"
     '';
 
   # Open ports in the firewall.
