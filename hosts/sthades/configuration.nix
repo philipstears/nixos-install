@@ -65,8 +65,8 @@
   };
 
   networking.firewall.allowedTCPPorts = [
-    443 # NGINX
-    80  # NGINX
+    443 # NGINX (restrictions are handled by NGINX itself)
+    80  # NGINX (restrictions are handled by NGINX itself)
   ];
 
   networking.firewall.extraCommands = ''
@@ -86,13 +86,40 @@
     dmz =   { id = 16; interface = "trusted"; };
   };
 
+  networking.interfaces = {
+    dmz = {
+      ipv4 = {
+        addresses = [
+          { address = "82.68.28.3"; prefixLength = 29; }
+          { address = "82.68.28.4"; prefixLength = 29; }
+        ];
+      };
+    };
+  };
+
+  networking.defaultGateway = {
+    address = "82.68.28.5";
+    interface = "dmz";
+    metric = 10;
+  };
+
+  networking.nameservers = [
+    "82.68.28.5"
+  ];
+
   networking.dhcpcd.extraConfig =
     ''
+      # Disable DHCP on the DMZ
+      denyinterfaces dmz
+
+      # Disable APIPA addresses
+      noipv4ll
+
+      # Make sure the trusted LAN
+      # has a lower priority than
+      # than the DMZ
       interface trusted
       metric 100
-
-      interface dmz
-      metric 50
     '';
 
   services.nginx = {
@@ -110,13 +137,30 @@
     '';
 
     virtualHosts = {
+      "d3.philipstears.com" = {
+        forceSSL = true;
+        enableACME = true;
+
+        locations = {
+          "/" = {
+            proxyPass = "http://82.68.28.3:3080/";
+            proxyWebsockets = true;
+            extraConfig = ''
+              allow 82.68.28.0/29;
+              deny all;
+            '';
+          };
+        };
+      };
+
       "d4.philipstears.com" = {
         forceSSL = true;
         enableACME = true;
 
         locations = {
           "/" = {
-            proxyPass = "http://127.0.0.1:3080/";
+            proxyPass = "http://82.68.28.4:3080/";
+            proxyWebsockets = true;
             extraConfig = ''
               allow 82.68.28.0/29;
               deny all;
@@ -128,6 +172,7 @@
   };
 
   security.acme.certs = {
+    "d3.philipstears.com".email = "philip@philipstears.com";
     "d4.philipstears.com".email = "philip@philipstears.com";
   };
 
