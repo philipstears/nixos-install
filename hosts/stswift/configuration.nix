@@ -62,9 +62,4 @@
       { from = 4000; to = 4100; } # RTP
     ];
   };
-
-  networking.vlans = {
-    guest = { id = 32; interface = "trusted"; };
-    iot =   { id = 48; interface = "trusted"; };
-  };
 }
