@@ -62,4 +62,7 @@
       { from = 4000; to = 4100; } # RTP
     ];
   };
+
+  # I'm using an Apple keyboard, make it sane
+  services.xserver.xkbOptions = "altwin:swap_alt_win";
 }
