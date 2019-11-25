@@ -13,6 +13,9 @@
     # Useful for system administration
     htop
     wget
+
+    # Development
+    gitAndTools.tig
   ];
 
   # Configuration
