@@ -7,6 +7,10 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
+
+    # GNU > BSD :)
+    coreutils
+
     htop
     tmux
     vim
