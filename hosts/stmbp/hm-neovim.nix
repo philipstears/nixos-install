@@ -3,6 +3,7 @@
 { config, pkgs, ... }:
 
 let
+  standardPlugins = pkgs.vimPlugins;
   customPlugins = import ./vim-plugins.nix { inherit pkgs; };
 in
 {
@@ -10,20 +11,28 @@ in
     enable = true;
     viAlias = true;
     vimAlias = true;
-    plugins = with pkgs.vimPlugins; [
+    plugins = [
 
-      # Useful packages provided from nixpkgs
-      vim-nix
-      vim-airline
-      nerdtree
-      ctrlp
-      editorconfig-vim
-      vim-surround
-      vim-fugitive
-      typescript-vim
+      # Global Plugins
+      standardPlugins.ack-vim
+      standardPlugins.ctrlp
+      standardPlugins.editorconfig-vim
+      standardPlugins.nerdtree
+      standardPlugins.vim-surround
+      standardPlugins.vim-fugitive
+      standardPlugins.vim-airline
 
-      # Other packages of a more manual nature
+      # Specific Languages
+      customPlugins.elm-vim
+      customPlugins.purescript-vim
+      customPlugins.vim-jsx
+      standardPlugins.typescript-vim
+      standardPlugins.vim-markdown
+      standardPlugins.vim-nix
+
+      # Colour Schemes
       customPlugins.vim-colorschemes
+      customPlugins.vim-solarized
     ];
     extraConfig = (builtins.readFile ../../common/stears/files/vimrc);
   };
