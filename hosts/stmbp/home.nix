@@ -29,6 +29,11 @@
       # The terminal type to surface inside of tmux
       set -g default-terminal "xterm-256color"
     '';
+
+    # Don't use tmux-sensible for now because it tries
+    # using reattach-to-user-namespace which causes a
+    # warning in every pane on Catalina
+    sensibleOnTop = false;
   };
 
   programs.neovim = {
