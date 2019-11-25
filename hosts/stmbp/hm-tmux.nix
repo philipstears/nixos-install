@@ -20,6 +20,10 @@
     # using reattach-to-user-namespace which causes a
     # warning in every pane on Catalina
     sensibleOnTop = false;
+
+    # Assumes the presence of a /run directory, which we don't have on
+    # macOS
+    secureSocket = false;
   };
 }
 
