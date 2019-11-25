@@ -156,6 +156,68 @@ inoremap <C-@> <C-x><C-o>
 noremap <C-w><C-n> :vnew<cr>
 noremap <C-n> :NERDTree<cr>
 
+" ==============================================================================
+" Color Scheme Stuff Originally Taken from Rob
+" ==============================================================================
+"Gotta do it this way or the theme won't get loaded"
+function! SetDarkTheme()
+  colorscheme Tomorrow-Night-Bright
+  highlight NonText ctermfg=black
+  highlight SpellBad ctermfg=black
+  highlight VertSplit cterm=none gui=none
+  highlight clear SignColumn
+  highlight CursorLine cterm=none ctermbg=235
+  highlight LineNr ctermfg=darkgrey
+  highlight StatusLine ctermfg=white ctermbg=darkblue
+  highlight StatusLineNC ctermfg=white ctermbg=blue
+  highlight Normal ctermbg=none
+endfunction
+
+" Having a change of scenery
+function! SetLightTheme()
+  colorscheme default
+  highlight NonText ctermfg=black
+  highlight VertSplit cterm=none gui=none
+  highlight clear SignColumn
+  highlight CursorLine cterm=none ctermbg=lightgrey
+  highlight LineNr ctermfg=darkgrey
+  highlight StatusLine ctermfg=darkblue ctermbg=white
+  highlight StatusLineNC ctermfg=darkgrey ctermbg=blue
+endfunction
+
+function! SetSolarized()
+  set background=dark
+  colorscheme solarized
+endfunction
+
+function! Presentation()
+  if !empty(glob(".pres"))
+    set norelativenumber
+    hi clear CursorLine
+    hi clear Cursor
+    hi clear CursorColumn
+    set norelativenumber
+    let g:airline#extensions#tabline#enabled = 0
+    let g:loaded_airline = 0
+    let s:hidden_all = 1
+    set noshowmode
+    set noruler
+    set laststatus=0
+    set noshowcmd
+  endif
+endfunction
+
+" This is a bit cheeky, but it's pretty useful when in Thailand
+function! Daytime()
+  colorscheme default
+  set guifont=Ubuntu\ Mono\ 14
+endfunction
+
+augroup theming
+  autocmd!
+  autocmd VimEnter * call SetDarkTheme()
+augroup END
+
 if has("gui_running")
   if has("gui_gtk2")
     set guifont=Droid\ Sans\ Mono\ 12
