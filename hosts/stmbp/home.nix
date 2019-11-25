@@ -3,57 +3,25 @@
 { config, pkgs, ... }:
 
 {
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 
+  # Packages
   home.packages = with pkgs; [
 
     # GNU > BSD :)
     coreutils
 
+    # Useful for system administration
     htop
-    tmux
-    vim
     wget
   ];
 
-  programs.tmux = {
-    enable = true;
-    extraConfig = ''
-      set -sg escape-time 0
-      set -g history-limit 16384
+  # Configuration
+  imports = [
+    ./hm-tmux.nix
+    ./hm-neovim.nix
+    ./hm-git.nix
+  ];
 
-      # Enable true-color for terminal type under which tmux runs
-      set -ga terminal-overrides ",xterm-256color:Tc"
-
-      # The terminal type to surface inside of tmux
-      set -g default-terminal "xterm-256color"
-    '';
-
-    # Don't use tmux-sensible for now because it tries
-    # using reattach-to-user-namespace which causes a
-    # warning in every pane on Catalina
-    sensibleOnTop = false;
-  };
-
-  programs.neovim = {
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
-    plugins = with pkgs.vimPlugins; [
-      nerdtree
-      ctrlp
-    ];
-    extraConfig = (builtins.readFile ../../common/stears/files/vimrc);
-  };
-
-  programs.git = {
-    enable = true;
-    userName  = "philipstears";
-    userEmail = "philip@philipstears.com";
-    signing = {
-      signByDefault = true;
-      key = "FA836504B26D139A";
-    };
-  };
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 }
