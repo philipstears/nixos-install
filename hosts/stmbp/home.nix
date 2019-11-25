@@ -24,6 +24,7 @@
     ./hm-neovim.nix
     ./hm-git.nix
     ./hm-emacs.nix
+    ./hm-zsh.nix
   ];
 
   # Let Home Manager install and manage itself.
