@@ -12,7 +12,7 @@
       share = false;
     };
     shellAliases = {
-      "ls" = "ls --color=always";
+      "ls" = "ls --color=tty";
     };
     sessionVariables = {};
     initExtra = ''
