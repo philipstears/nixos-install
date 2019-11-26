@@ -16,6 +16,7 @@
     (import ../../common/stears/files/pubkey-philip-yk.nix)
     (import ../../common/stears/files/pubkey-steve.nix)
     (import ../../common/stears/files/pubkey-james.nix)
+    (import ../../common/stears/files/pubkey-adrian.nix)
   ];
 }
 
