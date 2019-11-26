@@ -8,12 +8,14 @@
     <nixpkgs/nixos/modules/installer/cd-dvd/channel.nix>
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_5_1;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   systemd.services.sshd.wantedBy = pkgs.lib.mkForce [ "multi-user.target" ];
 
   users.users.root.openssh.authorizedKeys.keys = [
     (import ../../common/stears/files/pubkey-philip-yk.nix)
+    (import ../../common/stears/files/pubkey-steve.nix)
+    (import ../../common/stears/files/pubkey-james.nix)
   ];
 }
 
