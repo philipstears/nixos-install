@@ -25,6 +25,7 @@
     ../../common/stears/hm-git.nix
     ../../common/stears/hm-emacs.nix
     ../../common/stears/hm-zsh.nix
+    ../../common/stears/hm-direnv.nix
   ];
 
   # Let Home Manager install and manage itself.

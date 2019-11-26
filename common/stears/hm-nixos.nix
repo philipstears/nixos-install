@@ -74,12 +74,6 @@ in
     enable = true;
   };
 
-  programs.direnv = {
-    enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-  };
-
   # TODO: Does this achieve anything?
   services.screen-locker = {
     enable = true;

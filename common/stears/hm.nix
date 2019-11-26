@@ -18,6 +18,7 @@ let
     ./hm-git.nix
     ./hm-zsh.nix
     ./hm-xmonad.nix
+    ./hm-direnv.nix
   ];
 
   moduleResults = builtins.map runModule modules;
