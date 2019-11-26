@@ -1,6 +1,6 @@
 # vim: set sts=2 ts=2 sw=2 expandtab :
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   programs.zsh = {
@@ -17,8 +17,12 @@
     sessionVariables = {};
     initExtra = ''
 
-      # Make nix things available
-      . ~/.nix-profile/etc/profile.d/nix.sh
+      # Make nix things available (for non NixOS
+      # environments)
+      if [[ -f ~/.nix-profile/etc/profile.d/nix.sh ]]
+      then
+        . ~/.nix-profile/etc/profile.d/nix.sh
+      fi
 
       # Update history incrementally
       INC_APPEND_HISTORY="true"

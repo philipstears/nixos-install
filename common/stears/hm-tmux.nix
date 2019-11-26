@@ -1,7 +1,13 @@
 # vim: set sts=2 ts=2 sw=2 expandtab :
 
-{ config, pkgs, ... }:
+{ pkgs, lib, ... }:
 
+let
+  tmuxPlugins = with pkgs.tmuxPlugins; [
+    resurrect
+    sessionist
+  ];
+in
 {
   programs.tmux = {
     enable = true;
@@ -14,6 +20,8 @@
 
       # The terminal type to surface inside of tmux
       set -g default-terminal "xterm-256color"
+
+      ${lib.concatStrings (map (x: "run-shell ${x.rtp}\n") tmuxPlugins)}
     '';
 
     # Don't use tmux-sensible for now because it tries

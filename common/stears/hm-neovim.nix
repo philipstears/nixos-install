@@ -1,6 +1,6 @@
 # vim: set sts=2 ts=2 sw=2 expandtab :
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 let
   standardPlugins = pkgs.vimPlugins;
@@ -34,7 +34,7 @@ in
       customPlugins.vim-colorschemes
       customPlugins.vim-solarized
     ];
-    extraConfig = (builtins.readFile ../../common/stears/files/vimrc);
+    extraConfig = (builtins.readFile ./files/vim-init.vim);
   };
 }
 

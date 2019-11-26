@@ -1,6 +1,6 @@
 # vim: set sts=2 ts=2 sw=2 expandtab :
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   programs.emacs = {
@@ -51,6 +51,6 @@
       );
   };
 
-  home.file.".emacs.d/init.el".source = ../../common/stears/files/emacs/init.el;
+  home.file.".emacs.d/init.el".source = ./files/emacs-init.el;
 }
 

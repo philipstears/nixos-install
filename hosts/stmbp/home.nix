@@ -20,11 +20,11 @@
 
   # Configuration
   imports = [
-    ./hm-tmux.nix
-    ./hm-neovim.nix
-    ./hm-git.nix
-    ./hm-emacs.nix
-    ./hm-zsh.nix
+    ../../common/stears/hm-tmux.nix
+    ../../common/stears/hm-neovim.nix
+    ../../common/stears/hm-git.nix
+    ../../common/stears/hm-emacs.nix
+    ../../common/stears/hm-zsh.nix
   ];
 
   # Let Home Manager install and manage itself.
