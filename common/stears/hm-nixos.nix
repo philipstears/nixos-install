@@ -27,6 +27,9 @@ in
     linphone
     ekiga
 
+    # IRC
+    weechat
+
     gitAndTools.tig
 
     powerline-fonts
