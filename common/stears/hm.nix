@@ -3,13 +3,6 @@
 { pkgs, lib, ... }:
 
 let
-  private = import ../private { inherit pkgs; };
-
-  tmuxPlugins = with pkgs.tmuxPlugins; [
-    resurrect
-    sessionist
-  ];
-
   modules = [
     ./hm-nixos.nix
     ./hm-tmux.nix
