@@ -19,6 +19,7 @@ let
     ./hm-zsh.nix
     ./hm-xmonad.nix
     ./hm-direnv.nix
+    ./hm-lorri.nix
   ];
 
   moduleResults = builtins.map runModule modules;
