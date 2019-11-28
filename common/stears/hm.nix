@@ -25,13 +25,26 @@ let
 
   runModule = module: import module { inherit pkgs lib; };
 
-  combined = builtins.foldl' mergeResult {} moduleResults;
+  combined = builtins.foldl' mergeResult emptyAcc moduleResults;
+
+  emptyAcc = { home = { packages = []; }; };
 
   # This is a deep set merge, right-hand-side wins,
   # it's not perfect but it should do
   mergeResult =
-    moduleResult: acc:
-      lib.recursiveUpdate acc moduleResult;
+    acc: moduleResult:
+      let
+
+        # Need to manually merge packages because recursiveUpdate doesn't know how to merge lists
+        modulePackages = lib.attrsets.attrByPath [ "home" "packages" ] [] moduleResult;
+        currentPackages = acc.home.packages;
+        allPackages = modulePackages ++ currentPackages;
+
+        # The inject them into the module result, because its version would win over the version in the accumulator
+        moduleResultPatched = lib.recursiveUpdate moduleResult { home = { packages = allPackages; }; };
+
+      in
+        lib.recursiveUpdate acc moduleResultPatched;
 
 in
   combined
