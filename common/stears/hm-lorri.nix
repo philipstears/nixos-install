@@ -3,10 +3,7 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    lorri
-  ];
-
+  # Automatically adds lorri to home.packages
   services.lorri = {
     enable = true;
   };
