@@ -85,4 +85,6 @@
   ];
 
   networking.networkmanager.enable = true;
+
+  services.xserver.xkbOptions = "caps:ctrl_modifier";
 }
