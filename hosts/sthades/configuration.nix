@@ -198,5 +198,5 @@
   };
 
   # I'm using an Apple keyboard, make it sane
-  services.xserver.xkbOptions = "altwin:swap_alt_win";
+  services.xserver.xkbOptions = "altwin:swap_alt_win,caps:ctrl_modifier";
 }
