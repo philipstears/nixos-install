@@ -98,6 +98,11 @@
     ;;(flycheck-mode)
     (turn-on-purescript-indentation)))
 
+(add-hook 'psc-ide-mode-hook
+	  (lambda ()
+	    (define-key evil-normal-state-local-map (kbd "C-]") 'psc-ide-goto-definition)
+	    (define-key evil-insert-state-local-map (kbd "C-]") 'psc-ide-goto-definition)))
+
 ;; -----------------------------------------------------------------------------
 ;; Indentation Settings
 ;; -----------------------------------------------------------------------------
@@ -224,7 +229,7 @@
   '(package-selected-packages
      (quote
        (zoom-frm yoshi-theme yaml-mode web-mode use-package typescript-mode toml-mode textmate terraform-mode smex scion rainbow-delimiters railscasts-theme purescript-mode psc-ide projectile pastelmac-theme neotree multi-web-mode monokai-theme magit linum-relative lfe-mode kerl intero helm-swoop hamburg-theme flx-ido evil eproject elm-mode edts editorconfig doom-themes cider cargo ag)))
-  '(safe-local-variable-values (quote ((allout-layout . t)))))
+  '(safe-local-variable-values (quote ((psc-ide-codegen "corefn") (allout-layout . t)))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
