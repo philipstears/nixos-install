@@ -24,8 +24,8 @@ in
     vlc
     sox
     audacity
-    linphone
-    ekiga
+    # linphone
+    # ekiga
 
     # IRC
     weechat
