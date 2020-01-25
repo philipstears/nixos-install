@@ -199,4 +199,16 @@
 
   # I'm using an Apple keyboard, make it sane
   services.xserver.xkbOptions = "altwin:swap_alt_win,caps:ctrl_modifier";
+
+  virtualisation = {
+    virtualbox = {
+      host = {
+        enable = true;
+
+        # NOTE: This means that virtualbox needs compiling from source, which
+        # burns some CPU for a while
+        enableExtensionPack = true;
+      };
+    };
+  };
 }

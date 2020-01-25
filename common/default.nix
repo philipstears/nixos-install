@@ -168,15 +168,6 @@ in
       enableOnBoot = false;
       # extraOptions = "--ipv6";
     };
-    virtualbox = {
-      host = {
-        enable = true;
-
-        # NOTE: This means that virtualbox needs compiling from source, which
-        # burns some CPU for a while
-        enableExtensionPack = true;
-      };
-    };
   };
 
   # Yubikey stuff
