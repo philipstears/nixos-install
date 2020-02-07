@@ -3,9 +3,14 @@
 { pkgs, ... }:
 
 {
-  # Automatically adds lorri to home.packages
-  services.lorri = {
-    enable = true;
-  };
+  home.packages = with pkgs; [
+    lorri
+  ];
+
+  # The lorri daemon isn't ready for prime-time yet, sadly
+  # # Automatically adds lorri to home.packages
+  # services.lorri = {
+  #   enable = true;
+  # };
 }
 
