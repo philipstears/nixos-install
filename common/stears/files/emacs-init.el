@@ -7,6 +7,18 @@
 (package-initialize)
 
 ;; -----------------------------------------------------------------------------
+;; Splash screen
+;; -----------------------------------------------------------------------------
+(setq inhibit-splash-screen t
+      inhibit-startup-screen t
+      initial-scratch-message nil)
+
+;; -----------------------------------------------------------------------------
+;; Trailing newline
+;; -----------------------------------------------------------------------------
+(setq require-final-newline t)
+
+;; -----------------------------------------------------------------------------
 ;; Evil, because why would you do anything else? }-)
 ;; -----------------------------------------------------------------------------
 (use-package
@@ -16,6 +28,12 @@
   (evil-mode 1)
   (defalias #'forward-evil-word #'forward-evil-symbol)
   )
+
+;; -----------------------------------------------------------------------------
+;; ag
+;; -----------------------------------------------------------------------------
+(defalias 'ack 'helm-ag)
+(require 'helm-ag)
 
 ;; -----------------------------------------------------------------------------
 ;; Complete Anything
@@ -56,8 +74,10 @@
 (setq edts-inhibit-package-check t)
 
 ;; Load it
-(use-package edts-start
-  :load-path "stears/edts" ;; Relative to emacs.d/
+(if (locate-file "erl" exec-path)
+  (use-package edts-start
+               :load-path "stears/edts" ;; Relative to emacs.d/
+               )
   )
 
 (add-hook 'erlang-mode-hook
@@ -89,6 +109,7 @@
 ;; -----------------------------------------------------------------------------
 (use-package purescript-mode)
 (use-package psc-ide)
+(use-package dhall-mode)
 
 (add-hook
   'purescript-mode-hook
@@ -174,6 +195,9 @@
 
 ;; Multiple Major Modes for web content
 (use-package web-mode)
+(add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html$" . web-mode))
 
 (use-package terraform-mode)
 
@@ -207,9 +231,12 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; -----------------------------------------------------------------------------
+;; Backups
+;; -----------------------------------------------------------------------------
 (setq
   backup-by-copying t      ; don't clobber symlinks
-  backup-directory-alist '(("." . "~/.tmp/emacs-saves"))    ; don't litter my fs tree
+  backup-directory-alist '(("." . "~/tmp/emacs-saves"))    ; don't litter my fs tree
   delete-old-versions t
   kept-new-versions 6
   kept-old-versions 2

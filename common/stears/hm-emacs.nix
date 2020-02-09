@@ -11,6 +11,8 @@
       [
         epkgs.melpaPackages.use-package
 
+        # General things
+        epkgs.melpaPackages.ag
         epkgs.melpaPackages.evil
         epkgs.melpaPackages.neotree
         epkgs.melpaPackages.projectile
@@ -18,10 +20,11 @@
         epkgs.melpaPackages.magit
         epkgs.melpaPackages.rainbow-delimiters
         epkgs.melpaPackages.editorconfig
-        epkgs.melpaPackages.ag
         epkgs.melpaPackages.linum-relative
-
+        epkgs.melpaPackages.markdown-mode
         epkgs.melpaPackages.yaml-mode
+        epkgs.melpaPackages.terraform-mode
+        epkgs.melpaPackages.helm-ag
 
         epkgs.melpaPackages.pastelmac-theme
         epkgs.melpaPackages.monokai-theme
@@ -34,19 +37,28 @@
         epkgs.melpaPackages.erlang
         epkgs.melpaPackages.company-erlang
 
-        epkgs.melpaPackages.elm-mode
+        # epkgs.melpaPackages.flycheck
+        # epkgs.melpaPackages.flymake-cursor
 
+        # Web Things
+        epkgs.melpaPackages.web-mode
+        epkgs.melpaPackages.elm-mode
         epkgs.melpaPackages.typescript-mode
 
+        # Rust
         epkgs.melpaPackages.rust-mode
         epkgs.melpaPackages.cargo
         epkgs.melpaPackages.toml-mode
 
+        # PureScript
         epkgs.melpaPackages.purescript-mode
         epkgs.melpaPackages.psc-ide
+        epkgs.melpaPackages.dhall-mode
 
-        epkgs.melpaPackages.web-mode
-        epkgs.melpaPackages.terraform-mode
+        # Things Steve has and I don't
+        # epkgs.melpaPackages.ace-jump-mode
+        # epkgs.melpaPackages.spaceline
+        # epkgs.melpaPackages.smex
       ]
       );
   };
