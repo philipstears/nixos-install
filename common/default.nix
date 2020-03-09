@@ -108,8 +108,6 @@ in
     libva-utils
 
     # Desktop Env Support Utilities
-    ( writeScriptBin "otp" (builtins.readFile ./files/scripts/otp) )
-
     ( writeScriptBin "st-audio-get-master-volume" ''
       #!${pkgs.bash}/bin/bash
       amixer sget Master | awk -F '[][]' '/.*Left:/ { print $2 }'
@@ -155,6 +153,24 @@ in
     ( writeScriptBin "st-kb-english" ''
        #!${pkgs.bash}/bin/bash
        ${pkgs.xorg.setxkbmap}/bin/setxkbmap -layout us
+    ''
+    )
+
+    ( writeScriptBin "st-otp" ''
+       #!${pkgs.bash}/bin/bash
+      set -euo pipefail
+
+      # If the yubikey has been used for GPG/SSH tasks, then yubioath doesn't work,
+      # so restart the smartcard daemon
+      sudo systemctl restart pcscd
+
+      declare selected_key
+      selected_key=$(${pkgs.yubikey-manager}/bin/ykman oath list | ${pkgs.coreutils}/bin/tr '[:upper:]' '[:lower:]' | ${pkgs.gawk}/bin/awk -F ":" '{print $1}' | ${pkgs.dmenu}/bin/dmenu)
+
+      declare selected_key_code
+      selected_key_code=$(${pkgs.yubikey-manager}/bin/ykman oath code "''${selected_key}" | ${pkgs.gawk}/bin/awk -F ':' '{ printf "%s", $2 }' | ${pkgs.gawk}/bin/awk '{ printf "%s", $2 }')
+
+      printf "%s" "''${selected_key_code}" | ${pkgs.xdotool}/bin/xdotool type --file -
     ''
     )
   ];

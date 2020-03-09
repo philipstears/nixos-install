@@ -57,7 +57,7 @@
               , ((0                                         , xF86XK_AudioStop),        spawn "${pkgs.playerctl}/bin/playerctl stop")
 
               , (((modMask originalConfig) .|. controlMask  , xK_l),                    spawn "xdg-screensaver lock")
-              , (((modMask originalConfig)                  , xK_o),                    spawn "otp")
+              , (((modMask originalConfig)                  , xK_o),                    spawn "st-otp")
               , (((modMask originalConfig)                  , xK_s),                    spawn "gnome-screenshot -i")
               , (((modMask originalConfig)                  , xK_c),                    spawn "mate-calc")
               , (((modMask originalConfig)                  , xK_n),                    spawn "networkmanager_dmenu")
