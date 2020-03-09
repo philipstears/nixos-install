@@ -195,6 +195,9 @@ in
   # And thunderbolt things
   services.hardware.bolt.enable = true;
 
+  # So that FF/Chrome can use a yubikey for auth
+  hardware.u2f.enable = true;
+
   programs = {
     ssh.startAgent = false;
 
