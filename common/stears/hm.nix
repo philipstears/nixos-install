@@ -13,6 +13,9 @@ let
     ./hm-xmonad.nix
     ./hm-direnv.nix
     ./hm-lorri.nix
+
+    # NixOS-only stuff
+    ./hm-postman.nix
   ];
 
   moduleResults = builtins.map runModule modules;
