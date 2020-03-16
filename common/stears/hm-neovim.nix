@@ -30,6 +30,10 @@ in
       standardPlugins.vim-markdown
       standardPlugins.vim-nix
 
+      # Rust Bits
+      standardPlugins.deoplete-nvim
+      standardPlugins.deoplete-rust
+
       # Colour Schemes
       customPlugins.vim-colorschemes
       customPlugins.vim-solarized
