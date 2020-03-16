@@ -75,17 +75,17 @@
     # Allow the router to access services over the DMZ interface
     iptables -I nixos-fw 1 -i dmz -s 82.68.28.6 -p tcp -m tcp --dport 22 -j nixos-fw-accept
 
-    # Restricted access to SIP
-    iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p udp -m udp --dport 5060 -j nixos-fw-accept
-    iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p tcp -m tcp --dport 5060 -j nixos-fw-accept
-    iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p tcp -m tcp --dport 5061 -j nixos-fw-accept
-    iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p udp -m udp --dport 4000:4100 -j nixos-fw-accept
+    # # Restricted access to SIP
+    # iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p udp -m udp --dport 5060 -j nixos-fw-accept
+    # iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p tcp -m tcp --dport 5060 -j nixos-fw-accept
+    # iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p tcp -m tcp --dport 5061 -j nixos-fw-accept
+    # iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p udp -m udp --dport 4000:4100 -j nixos-fw-accept
 
     # Allow anyone access to SIP (for temporary testing)
-    # iptables -I nixos-fw 1 -i dmz -p udp -m udp --dport 5060 -j nixos-fw-accept
-    # iptables -I nixos-fw 1 -i dmz -p tcp -m tcp --dport 5060 -j nixos-fw-accept
-    # iptables -I nixos-fw 1 -i dmz -p tcp -m tcp --dport 5061 -j nixos-fw-accept
-    # iptables -I nixos-fw 1 -i dmz -p udp -m udp --dport 4000:4100 -j nixos-fw-accept
+    iptables -I nixos-fw 1 -i dmz -p udp -m udp --dport 5060 -j nixos-fw-accept
+    iptables -I nixos-fw 1 -i dmz -p tcp -m tcp --dport 5060 -j nixos-fw-accept
+    iptables -I nixos-fw 1 -i dmz -p tcp -m tcp --dport 5061 -j nixos-fw-accept
+    iptables -I nixos-fw 1 -i dmz -p udp -m udp --dport 4000:4100 -j nixos-fw-accept
   '';
 
   networking.vlans = {
