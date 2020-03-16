@@ -31,6 +31,7 @@ in
       standardPlugins.vim-nix
 
       # Rust Bits
+      standardPlugins.ale
       standardPlugins.deoplete-nvim
       standardPlugins.deoplete-rust
 

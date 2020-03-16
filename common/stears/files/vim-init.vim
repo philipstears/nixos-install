@@ -135,12 +135,22 @@ elseif !empty($userprofile)
 endif
 
 " Rust stuff
+let g:ale_fixers = {
+      \   'rust': ['rustfmt'],
+      \}
+
+let g:ale_linters = {
+      \'rust': ['rls'],
+      \}
+
 if !empty($RACER_PATH)
   let g:deoplete#sources#rust#racer_binary=$RACER_PATH
   let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
 endif
 
+let g:deoplete#sources = {'rust': ['ale', 'racer']}
 let g:deoplete#enable_at_startup = 1
+
 
 set guioptions-=T " No toolbar
 set guioptions-=t " No tear-off menus
