@@ -109,9 +109,7 @@
     metric = 10;
   };
 
-  networking.nameservers = [
-    "82.68.28.5"
-  ];
+  networking.nameservers = [];
 
   networking.dhcpcd.extraConfig =
     ''
