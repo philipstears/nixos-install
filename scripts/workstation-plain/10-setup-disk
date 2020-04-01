@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+set -x
+
+source "$(dirname "${BASH_SOURCE[0]}")/disk-config"
+
+declare -r disk=${DISK}
+declare -r esp=${ESP_PARTITION}
+declare -r lvm=${LVM_PARTITION}
+declare -r volume_group_name=main
+declare -r root_size=${ROOT_SIZE}
+declare -r boot_size=${BOOT_SIZE}
+
+# Make sure any existing things are closed
+yes | lvremove "/dev/${volume_group_name}/home" 2>/dev/null || true
+yes | lvremove "/dev/${volume_group_name}/root" 2>/dev/null || true
+yes | vgremove "${volume_group_name}" 2>/dev/null || true
+pvremove "${lvm}" 2>/dev/null || true
+
+umount /mnt/boot 2>/dev/null || true
+umount /mnt/home 2>/dev/null || true
+umount /mnt 2>/dev/null || true
+
+# Set-up for LVM
+{
+    printf "g\n" # GPT
+    printf "w\n" # Done - Write
+} | fdisk "${disk}"
+
+{
+    printf "n\n" # New Partition
+    printf "\n"  # Default Index (1)
+    printf "\n"  # Default Start Sector (1st available)
+    printf "+%s\n" "${boot_size}"
+
+    printf "t\n" # Change Type
+    printf "\n"  # Default Index (1)
+    printf "1\n" # EFI System Partition
+
+    printf "n\n" # New Partition
+    printf "\n"  # Default Index (2)
+    printf "\n"  # Default Start Sector (1st available)
+    printf "\n"  # Default End Sector (Last available)
+
+    printf "t\n" # Change Type
+    printf "\n"  # Default Index (2)
+    printf "31\n" # Linux LVM
+
+    printf "w\n" # Done - Write
+
+} | fdisk "${disk}"
+
+# Prepare LVM
+pvcreate "${lvm}"
+vgcreate "${volume_group_name}" "${lvm}"
+lvcreate --size "${root_size}" "${volume_group_name}" -n root
+lvcreate --extents 100%FREE "${volume_group_name}" -n home
+
+# Format the partitions
+mkfs.fat -F32 "${esp}"
+mkfs.ext4 "/dev/${volume_group_name}/root"
+mkfs.ext4 "/dev/${volume_group_name}/home"
+
+# Mount everything!
+mkdir -p /mnt
+mount "/dev/${volume_group_name}/root" /mnt
+
+mkdir -p /mnt/home
+mount "/dev/${volume_group_name}/home" /mnt/home
+
+mkdir -p /mnt/boot
+mount "${esp}" /mnt/boot

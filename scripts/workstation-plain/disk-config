@@ -1,0 +1,5 @@
+DISK=/dev/nvme0n1
+ESP_PARTITION=/dev/nvme0n1p1
+LVM_PARTITION=/dev/nvme0n1p2
+ROOT_SIZE=256GB
+BOOT_SIZE=1G
