@@ -6,12 +6,12 @@ let
   private = import ./private { inherit pkgs; };
 
   # Find an extant release here https://repo.skype.com/deb/pool/main/s/skypeforlinux/
-  skypeforlinux_latest_version = "8.54.0.91";
+  skypeforlinux_latest_version = "8.58.0.93";
   skypeforlinux_latest = pkgs.skypeforlinux.overrideAttrs (oldAttrs: {
     version = skypeforlinux_latest_version;
     src = pkgs.fetchurl {
       url = "https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_${skypeforlinux_latest_version}_amd64.deb";
-      sha256 = "1hnha8sqk78zxkjqg62npmg6dymi5fnyj2bmxlwpgi61v3pyxj94";
+      sha256 = "1nqadil50z896jg0r202gw3xmm3diawn0pnh6n6nxn900f02avl3";
     };
   });
 in
@@ -295,14 +295,12 @@ in
     };
   };
 
+  # Install the keyring fully (home manager can't do this by itself)
   services.gnome3 = {
-
-    # Install the keyring fully (home manager can't do this by itself)
     gnome-keyring.enable = true;
-
-    # So we can inspect the key chain
-    seahorse.enable = true;
   };
+
+  programs.seahorse.enable = true;
 
   # So the key chain is unlocked on login
   security.pam.services.lightdm.enableGnomeKeyring = true;
