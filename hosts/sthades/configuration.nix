@@ -47,6 +47,10 @@
   # Open ports in the firewall.
   networking.firewall.allowPing = true;
 
+  networking.firewall.trustedInterfaces = [
+    "lab"
+  ];
+
   networking.firewall.interfaces.trusted = {
     allowedTCPPorts = [
       22    # SSH
