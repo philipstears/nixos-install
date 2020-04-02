@@ -18,27 +18,20 @@
       ./stears
     ];
 
-  # Use the systemd-boot EFI boot loader - need
-  # this because we're doing whole-disk encryption.
+  # Needed for nvidia drivers
+  nixpkgs.config.allowUnfree = true;
+
+  # Use the systemd-boot EFI boot loader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.initrd.luks.devices = [
-    {
-      name = "cryptlvm";
-      device = "/dev/disk/by-label/system";
-      # preLVM = true;
-      allowDiscards = true;
-    }
-  ];
 
   networking.hostName = "stdarwin";
 
   # Name interfaces
   services.udev.extraRules =
     ''
-      KERNEL=="eth*", ATTR{address}=="54:b2:03:04:7d:68", NAME="trusted"
-      KERNEL=="eth*", ATTR{address}=="54:b2:03:04:7d:67", NAME="lab"
+      KERNEL=="eth*", ATTR{address}=="a8:5e:45:ce:7c:b0", NAME="trusted"
+      KERNEL=="eth*", ATTR{address}=="a0:36:9f:21:7e:90", NAME="lab"
     '';
 
   # Open ports in the firewall.
@@ -84,6 +77,32 @@
   };
 
   networking.interfaces = {
+    lab = {
+      ipv4 = {
+        addresses = [
+          { address = "10.24.24.1"; prefixLength = 16; }
+          { address = "10.24.24.2"; prefixLength = 16; }
+          { address = "10.24.24.3"; prefixLength = 16; }
+          { address = "10.24.24.4"; prefixLength = 16; }
+
+          { address = "10.24.24.5"; prefixLength = 16; }
+          { address = "10.24.24.6"; prefixLength = 16; }
+          { address = "10.24.24.7"; prefixLength = 16; }
+          { address = "10.24.24.8"; prefixLength = 16; }
+
+          { address = "10.24.24.9"; prefixLength = 16; }
+          { address = "10.24.24.10"; prefixLength = 16; }
+          { address = "10.24.24.11"; prefixLength = 16; }
+          { address = "10.24.24.12"; prefixLength = 16; }
+
+          { address = "10.24.24.13"; prefixLength = 16; }
+          { address = "10.24.24.14"; prefixLength = 16; }
+          { address = "10.24.24.15"; prefixLength = 16; }
+          { address = "10.24.24.16"; prefixLength = 16; }
+        ];
+      };
+    };
+
     dmz = {
       ipv4 = {
         addresses = [
