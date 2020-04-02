@@ -198,6 +198,9 @@
         '';
       }))
     ];
+
+    # Let 32-bit application use OpenGL
+    driSupport32Bit = true;
   };
 
   # I'm using an Apple keyboard, make it sane
@@ -214,4 +217,20 @@
       };
     };
   };
+
+  environment.systemPackages = with pkgs; [
+
+    # Vulkan!
+    vulkan-loader
+    vulkan-tools
+
+    # Wine with support for both 32-bit and 64-bit applications
+    (wineWowPackages.staging.override {
+      vulkanSupport = true;
+      # vkd3dSupport = true;
+    })
+
+    # Useful for QT things
+    hicolor-icon-theme
+  ];
 }
