@@ -18,6 +18,9 @@
       ./stears
     ];
 
+  # Max jobs to build in parallel
+  nix.maxJobs = 4;
+
   # Needed for nvidia drivers
   nixpkgs.config.allowUnfree = true;
 
@@ -206,11 +209,18 @@
     ];
   };
 
-  # Use the proprietary nvidia driver
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver = {
 
-  # I'm using an Apple keyboard, make it sane
-  services.xserver.xkbOptions = "altwin:swap_alt_win,caps:ctrl_modifier";
+    # Use the proprietary nvidia driver
+    videoDrivers = [ "nvidia" ];
+
+    # Force DPI
+    dpi = 96;
+
+    # I'm using an Apple keyboard, make it sane
+    xkbOptions = "altwin:swap_alt_win,caps:ctrl_modifier";
+  };
+
 
   virtualisation = {
     virtualbox = {

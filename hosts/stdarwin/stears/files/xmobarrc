@@ -8,11 +8,12 @@ Config
   , sepChar = "%"
   , alignSep = "}{"
 
-  , template = "%StdinReader% | %cpu% %coretemp% | %memory% | TL: %trusted% }{ KB: %kb-layout% | Spk: %out-vol% | Mic: %in-vol% | <fc=#ee9a00>%date%</fc>"
+  , template = "%StdinReader% | %cpu% | %memory% | TN: %trusted% LN: %lab% }{ KB: %kb-layout% | Spk: %out-vol% | Mic: %in-vol% | <fc=#ee9a00>%date%</fc>"
 
   , commands =
     [ Run StdinReader
     , Run Network "trusted" ["-t", "<rx> / <tx>", "-S", "true", "-L","0","-H","3000","--normal","darkgreen", "--low", "darkgreen", "--high","red"] 10
+    , Run Network "lab" ["-t", "<rx> / <tx>", "-S", "true", "-L","0","-H","3000","--normal","darkgreen", "--low", "darkgreen", "--high","red"] 10
 
     , Run Cpu
 	    [ "-t", "CPU: <total>%"
@@ -29,8 +30,6 @@ Config
     , Run Memory ["-t","Mem: <usedratio>%", "-L", "0", "-M", "40", "-H", "65",  "--low", "darkgreen", "--normal", "darkgreen", "--high", "red" ] 10
 
     , Run Date "%a %Y-%m-%d %H:%M:%S" "date" 10
-
-    , Run CoreTemp ["-t", "<core0>C (<core1>C <core2>C <core3>C <core4>C <core5>C <core6>C <core7>C <core8>C <core9>C <core10>C <core11>C <core12>C <core13>C <core14>C <core15>C <core16>C)", "-L", "40", "-H", "80", "--low", "lightblue", "--normal", "darkgreen", "-h", "red"] 50
 
     , Run Com "st-audio-get-master-volume" [] "out-vol" 10
     , Run Com "st-audio-get-capture-volume" []  "in-vol" 10
