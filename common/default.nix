@@ -66,6 +66,7 @@ in
     openssl
     tcpdump
     ethtool
+    traceroute
     jq
     awscli
     unzip
