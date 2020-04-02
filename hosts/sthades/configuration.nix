@@ -41,7 +41,7 @@
     ''
       KERNEL=="eth*", ATTR{address}=="54:b2:03:04:7d:68", NAME="trusted"
       KERNEL=="eth*", ATTR{address}=="54:b2:03:04:7d:67", NAME="unused"
-      KERNEL=="eth*", ATTR{address}=="00:30:93:10:19:ad", NAME="sonnet"
+      KERNEL=="eth*", ATTR{address}=="00:30:93:10:19:ad", NAME="lab"
     '';
 
   # Open ports in the firewall.
@@ -93,6 +93,32 @@
   };
 
   networking.interfaces = {
+    lab = {
+      ipv4 = {
+        addresses = [
+          { address = "10.24.16.1"; prefixLength = 16; }
+          { address = "10.24.16.2"; prefixLength = 16; }
+          { address = "10.24.16.3"; prefixLength = 16; }
+          { address = "10.24.16.4"; prefixLength = 16; }
+
+          { address = "10.24.16.5"; prefixLength = 16; }
+          { address = "10.24.16.6"; prefixLength = 16; }
+          { address = "10.24.16.7"; prefixLength = 16; }
+          { address = "10.24.16.8"; prefixLength = 16; }
+
+          { address = "10.24.16.9"; prefixLength = 16; }
+          { address = "10.24.16.10"; prefixLength = 16; }
+          { address = "10.24.16.11"; prefixLength = 16; }
+          { address = "10.24.16.12"; prefixLength = 16; }
+
+          { address = "10.24.16.13"; prefixLength = 16; }
+          { address = "10.24.16.14"; prefixLength = 16; }
+          { address = "10.24.16.15"; prefixLength = 16; }
+          { address = "10.24.16.16"; prefixLength = 16; }
+        ];
+      };
+    };
+
     dmz = {
       ipv4 = {
         addresses = [
