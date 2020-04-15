@@ -124,6 +124,9 @@ set lazyredraw
 " Stop ctrl-p from re-indexing across new instances of vim
 let g:ctrlp_clear_cache_on_exit = 0
 
+" Ignore .gitignore-d files
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+
 " Change to the current working directory if possible, or on Windows, the user
 " profile dir as a fallback
 if !empty($pwd)
