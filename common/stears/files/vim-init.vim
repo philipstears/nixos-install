@@ -127,6 +127,9 @@ let g:ctrlp_clear_cache_on_exit = 0
 " Ignore .gitignore-d files
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 
+" Tell ack.vim to use rg
+let g:ackprg = 'rg --vimgrep --no-heading'
+
 " Change to the current working directory if possible, or on Windows, the user
 " profile dir as a fallback
 if !empty($pwd)
