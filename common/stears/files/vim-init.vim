@@ -187,21 +187,18 @@ noremap <C-n> :NERDTree<cr>
 
 nmap <F8> :TagbarToggle<CR>
 
+" Enable true-colour
+if (has("termguicolors"))
+ set termguicolors
+endif
+
 " ==============================================================================
 " Color Scheme Stuff Originally Taken from Rob
 " ==============================================================================
+"
 "Gotta do it this way or the theme won't get loaded"
 function! SetDarkTheme()
   colorscheme Tomorrow-Night-Bright
-  highlight NonText ctermfg=black
-  highlight SpellBad ctermfg=black
-  highlight VertSplit cterm=none gui=none
-  highlight clear SignColumn
-  highlight CursorLine cterm=none ctermbg=235
-  highlight LineNr ctermfg=darkgrey
-  highlight StatusLine ctermfg=white ctermbg=darkblue
-  highlight StatusLineNC ctermfg=white ctermbg=blue
-  highlight Normal ctermbg=none
 endfunction
 
 " Having a change of scenery
