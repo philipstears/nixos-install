@@ -26,7 +26,7 @@
   :init (setq evil-want-C-u-scroll t)
   :config
   (evil-mode 1)
-  (defalias #'forward-evil-word #'forward-evil-symbol)
+  ;;(defalias #'forward-evil-word #'forward-evil-symbol)
   )
 
 ;; -----------------------------------------------------------------------------
