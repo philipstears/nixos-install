@@ -7,6 +7,10 @@ let
   customPlugins = import ./vim-plugins.nix { inherit pkgs; };
 in
 {
+  home.packages = with pkgs; [
+    universal-ctags
+  ];
+
   programs.neovim = {
     enable = true;
     viAlias = true;
@@ -21,6 +25,8 @@ in
       standardPlugins.vim-surround
       standardPlugins.vim-fugitive
       standardPlugins.vim-airline
+      standardPlugins.tagbar
+      standardPlugins.vim-gutentags
 
       # Specific Languages
       customPlugins.elm-vim

@@ -185,6 +185,8 @@ inoremap <C-@> <C-x><C-o>
 noremap <C-w><C-n> :vnew<cr>
 noremap <C-n> :NERDTree<cr>
 
+nmap <F8> :TagbarToggle<CR>
+
 " ==============================================================================
 " Color Scheme Stuff Originally Taken from Rob
 " ==============================================================================
