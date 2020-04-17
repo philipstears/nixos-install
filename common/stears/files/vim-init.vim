@@ -183,6 +183,7 @@ inoremap <C-Space> <C-x><C-o>
 inoremap <C-@> <C-x><C-o>
 
 noremap <C-w><C-n> :vnew<cr>
+noremap <C-w><C-s> :vsplit<cr>
 noremap <C-n> :NERDTree<cr>
 
 nmap <F8> :TagbarToggle<CR>
