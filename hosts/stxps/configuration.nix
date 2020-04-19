@@ -36,25 +36,6 @@
 
   networking.hostName = "stxps";
 
-  services.udev.extraRules =
-    ''
-      KERNEL=="eth*", ATTR{address}=="00:30:93:10:19:62", NAME="sonnet"
-    '';
-
-  networking.interfaces = {
-    sonnet = {
-      ipv4 = {
-        addresses = [
-          { address = "192.168.0.1"; prefixLength = 24; }
-          { address = "192.168.0.32"; prefixLength = 24; }
-          { address = "192.168.0.33"; prefixLength = 24; }
-          { address = "192.168.0.34"; prefixLength = 24; }
-          { address = "192.168.0.35"; prefixLength = 24; }
-        ];
-      };
-    };
-  };
-
   # Open ports in the firewall.
   networking.firewall.allowPing = true;
 
@@ -77,15 +58,8 @@
     { from = 4000; to = 4100; }
   ];
 
-  networking.firewall.trustedInterfaces = [
-    "sonnet"
-  ];
-
   networking.dhcpcd.extraConfig =
     ''
-      # Disable DHCP on the 10G adapter
-      denyinterfaces sonnet
-
       # Disable APIPA addresses
       noipv4ll
     '';
