@@ -40,6 +40,7 @@ in
       standardPlugins.ale
       standardPlugins.deoplete-nvim
       standardPlugins.deoplete-rust
+      standardPlugins.vim-toml
 
       # Colour Schemes
       customPlugins.vim-colorschemes
