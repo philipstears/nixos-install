@@ -116,6 +116,7 @@ set tabstop=2
 set softtabstop=2
 set shiftwidth=2
 set expandtab
+set splitbelow splitright
 
 " Buffer redraws (helps with things like relative line numbers, and just
 " generally on remote shells)
