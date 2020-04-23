@@ -266,3 +266,6 @@ set wildignore+=*.o,*.d,*.bin,*.elf,*.sys,*.BIN,*.ELF,*.SYS,*.img,*.IMG,*.beam
 
 " Down with trailing whitespace!
 autocmd BufWritePre * :%s/\s\+$//e
+
+" Enable exiting insert mode in a terminal by pressing escape
+tnoremap <Esc> <C-\><C-n>
