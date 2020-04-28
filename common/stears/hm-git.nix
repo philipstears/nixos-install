@@ -1,5 +1,3 @@
-# vim: set sts=2 ts=2 sw=2 expandtab :
-
 { pkgs, ... }:
 
 {
@@ -14,6 +12,11 @@
     ignores = [
       "tags"
     ];
+    extraConfig = {
+      core = {
+        pager = "less -F -X";
+      };
+    };
   };
 }
 
