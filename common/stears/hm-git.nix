@@ -11,6 +11,9 @@
       signByDefault = true;
       key = "FA836504B26D139A";
     };
+    ignores = [
+      "tags"
+    ];
   };
 }
 
