@@ -83,7 +83,8 @@
 (add-hook 'erlang-mode-hook
 	  (lambda ()
 	    (define-key evil-normal-state-local-map (kbd "C-]") 'edts-find-source-under-point)
-	    (define-key evil-insert-state-local-map (kbd "C-]") 'edts-find-source-under-point)))
+	    (define-key evil-insert-state-local-map (kbd "C-]") 'edts-find-source-under-point)
+      (modify-syntax-entry ?_ "w")))
 
 ;; -----------------------------------------------------------------------------
 ;; Elm
