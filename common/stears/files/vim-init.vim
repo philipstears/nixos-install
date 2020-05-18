@@ -160,7 +160,10 @@ if !empty($RACER_PATH)
   let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
 endif
 
-let g:deoplete#sources = {'rust': ['ale', 'racer']}
+let g:deoplete#sources = {
+      \'rust': ['ale', 'racer'],
+      \ '_': ['ale'],
+      \}
 let g:deoplete#enable_at_startup = 1
 
 
