@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    gitAndTools.delta
+  ];
+
   programs.git = {
     enable = true;
     userName  = "philipstears";
@@ -14,7 +18,10 @@
     ];
     extraConfig = {
       core = {
-        pager = "less -F -X";
+        pager = "${pkgs.gitAndTools.delta}/bin/delta";
+      };
+      interactive = {
+        diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --color-only";
       };
     };
   };
