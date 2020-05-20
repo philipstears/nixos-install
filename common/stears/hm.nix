@@ -13,6 +13,7 @@ let
     ./hm-xmonad.nix
     ./hm-direnv.nix
     ./hm-lorri.nix
+    ./hm-utils.nix
 
     # NixOS-only stuff
     ./hm-postman.nix
