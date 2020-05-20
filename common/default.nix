@@ -53,7 +53,7 @@ in
     vim
     pavucontrol
     openssh
-    git git-lfs
+    git
     tmux
     ripgrep
     htop iotop iftop

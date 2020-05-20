@@ -24,6 +24,9 @@
         diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --color-only";
       };
     };
+    lfs = {
+      enable = true;
+    };
   };
 }
 
