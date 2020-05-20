@@ -27,11 +27,13 @@ in
 
   # Select internationalisation properties.
   i18n = {
-    # consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "de";
 
     # English Language with sensible formatting
     defaultLocale = "en_DK.UTF-8";
+  };
+
+  console = {
+    keyMap = "de";
   };
 
   # Set your time zone.
@@ -270,6 +272,8 @@ in
     layout = "us";
 
     displayManager = {
+      defaultSession = "none+xmonad";
+
       lightdm.enable = true;
 
       # TODO: There has to be a better place for this
@@ -279,8 +283,6 @@ in
     };
 
     windowManager = {
-      default = "xmonad";
-
       xmonad = {
         enable = true;
         enableContribAndExtras = true;
@@ -291,7 +293,6 @@ in
     };
 
     desktopManager = {
-      default = "none";
       xterm.enable = false;
     };
   };

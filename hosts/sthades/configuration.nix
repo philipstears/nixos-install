@@ -23,14 +23,13 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices = [
-    {
-      name = "cryptlvm";
+  boot.initrd.luks.devices = {
+    cryptlvm = {
       device = "/dev/disk/by-label/system";
       # preLVM = true;
       allowDiscards = true;
-    }
-  ];
+    };
+  };
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -204,6 +203,8 @@
       };
     };
   };
+
+  security.acme.acceptTerms = true;
 
   security.acme.certs = {
     "d3.philipstears.com".email = "philip@philipstears.com";
