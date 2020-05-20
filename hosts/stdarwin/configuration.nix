@@ -192,6 +192,8 @@
     };
   };
 
+  security.acme.acceptTerms = true;
+
   security.acme.certs = {
     "d2.philipstears.com".email = "philip@philipstears.com";
     "d1.philipstears.com".email = "philip@philipstears.com";
