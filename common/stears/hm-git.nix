@@ -20,9 +20,9 @@
       core = {
         pager = "${pkgs.gitAndTools.delta}/bin/delta";
       };
-      interactive = {
-        diffFilter = "${pkgs.gitAndTools.delta}/bin/delta --color-only";
-      };
+      # interactive = {
+      #   diffFilter = "${pkgs.gitAndTools.delta}/bin/delta";
+      # };
     };
     lfs = {
       enable = true;
