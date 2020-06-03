@@ -71,6 +71,16 @@
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
 
+  # Bluetooth
+  hardware.bluetooth.enable = true;
+
+  hardware.pulseaudio = {
+
+    # NixOS allows either a lightweight build (default) or full build of PulseAudio to be installed.
+    # Only the full build has Bluetooth support, so it must be selected here.
+    package = pkgs.pulseaudioFull;
+  };
+
   # VAAPI
   # https://nixos.wiki/wiki/Accelerated_Video_Playback
   hardware.opengl = {
