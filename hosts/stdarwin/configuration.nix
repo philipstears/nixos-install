@@ -27,6 +27,8 @@
   # Use the systemd-boot EFI boot loader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelParams = ["acpi_enforce_resources=lax"];
+  boot.kernelModules = [ "nct6775" ];
 
   networking.hostName = "stdarwin";
 

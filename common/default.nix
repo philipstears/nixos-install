@@ -110,6 +110,9 @@ in
     # Hardware Acceleration Utilities
     libva-utils
 
+    # System
+    lm_sensors
+
     # Desktop Env Support Utilities
     ( writeScriptBin "st-audio-get-master-volume" ''
       #!${pkgs.bash}/bin/bash
