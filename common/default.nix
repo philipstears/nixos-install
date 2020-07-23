@@ -160,6 +160,12 @@ in
     ''
     )
 
+    ( writeScriptBin "st-kb-neo" ''
+       #!${pkgs.bash}/bin/bash
+       ${pkgs.xorg.setxkbmap}/bin/setxkbmap -layout de -variant neo
+    ''
+    )
+
     ( writeScriptBin "st-otp" ''
        #!${pkgs.bash}/bin/bash
       set -euo pipefail

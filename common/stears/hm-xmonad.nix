@@ -64,6 +64,7 @@
 
               , (((modMask originalConfig)                  , xK_e),                    spawn "st-kb-english")
               , (((modMask originalConfig)                  , xK_d),                    spawn "st-kb-german")
+              , (((modMask originalConfig) .|. shiftMask    , xK_n),                    spawn "st-kb-neo")
               ]
 
         toggleStrutsKey XConfig {XMonad.modMask = modMask} =
