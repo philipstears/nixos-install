@@ -20,6 +20,9 @@
       core = {
         pager = "${pkgs.gitAndTools.delta}/bin/delta";
       };
+      init = {
+        defaultBranch = "main";
+      };
       # interactive = {
       #   diffFilter = "${pkgs.gitAndTools.delta}/bin/delta";
       # };
