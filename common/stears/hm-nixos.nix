@@ -57,7 +57,6 @@ in
 
     # My stuff
     private.packages.jump
-    private.packages.project
 
     # So we get access to udiskie-mount
     udiskie
