@@ -113,6 +113,9 @@ in
     # System
     lm_sensors
 
+    # User-mode File System
+    fuse
+
     # Desktop Env Support Utilities
     ( writeScriptBin "st-audio-get-master-volume" ''
       #!${pkgs.bash}/bin/bash

@@ -60,6 +60,10 @@ in
 
     # So we get access to udiskie-mount
     udiskie
+
+    # Typing
+    klavaro
+    espeak
   ]);
 
   # So Skype doesn't log out on each restart -
