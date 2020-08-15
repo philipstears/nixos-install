@@ -23,14 +23,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices = [
-    {
-      name = "cryptlvm";
-      device = "/dev/disk/by-label/system";
-      # preLVM = true;
-      allowDiscards = true;
-    }
-  ];
+  boot.initrd.luks.devices.cryptlvm = {
+    device = "/dev/disk/by-label/system";
+    allowDiscards = true;
+  };
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -92,12 +88,13 @@
     ];
   };
 
-  # Backlight Control
-  hardware.brightnessctl.enable = true;
-
-  # Network Manager
   environment.systemPackages = with pkgs; [
+
+    # Network Manager
     networkmanager_dmenu
+
+    # Backlight Control
+    brightnessctl
   ];
 
   networking.networkmanager.enable = true;
