@@ -209,6 +209,9 @@
     # NixOS allows either a lightweight build (default) or full build of PulseAudio to be installed.
     # Only the full build has Bluetooth support, so it must be selected here.
     package = pkgs.pulseaudioFull;
+
+    # For steam things
+    support32Bit = true;
   };
 
   # https://nixos.wiki/wiki/Accelerated_Video_Playback
@@ -257,8 +260,13 @@
     # Wine with support for both 32-bit and 64-bit applications
     (wineWowPackages.staging.override {
       vulkanSupport = true;
-      # vkd3dSupport = true;
+      vkd3dSupport = true;
     })
+
+    # Games
+    steam
+    steam-run
+    playonlinux
 
     # Useful for QT things
     hicolor-icon-theme
