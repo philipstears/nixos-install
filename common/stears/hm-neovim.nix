@@ -35,6 +35,7 @@ in
       standardPlugins.typescript-vim
       standardPlugins.vim-markdown
       standardPlugins.vim-nix
+      standardPlugins.verilog_systemverilog-vim
 
       # Rust Bits
       standardPlugins.ale
