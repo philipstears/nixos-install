@@ -24,13 +24,34 @@
   # Needed for nvidia drivers
   nixpkgs.config.allowUnfree = true;
 
-  # Use the systemd-boot EFI boot loader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = ["acpi_enforce_resources=lax"];
-  boot.kernelModules = [ "nct6775" ];
+  # Boot options
+  boot = {
+    loader = {
+
+      # Using grub on darwin because it seems to work better with
+      # Windows dual boot
+      grub = {
+        enable = true;
+        efiSupport = true;
+        useOSProber = true;
+        devices = [ "nodev" ];
+      };
+
+      efi = {
+        canTouchEfiVariables = true;
+      };
+    };
+
+    kernelParams = ["acpi_enforce_resources=lax"];
+    kernelModules = [ "nct6775" ];
+  };
 
   networking.hostName = "stdarwin";
+
+  # Windows needs a reg tweak to support UTC in the hardware
+  # clock, rather than mess with that, just make NixOS use
+  # local time instead :(
+  time.hardwareClockInLocalTime = true;
 
   # Name interfaces
   services.udev.extraRules =
