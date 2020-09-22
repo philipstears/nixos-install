@@ -26,7 +26,7 @@ in
       standardPlugins.vim-fugitive
       standardPlugins.vim-airline
       standardPlugins.tagbar
-      standardPlugins.vim-gutentags
+      # standardPlugins.vim-gutentags
 
       # Specific Languages
       customPlugins.elm-vim
@@ -35,6 +35,7 @@ in
       standardPlugins.typescript-vim
       standardPlugins.vim-markdown
       standardPlugins.vim-nix
+      standardPlugins.verilog_systemverilog-vim
 
       # Rust Bits
       standardPlugins.ale

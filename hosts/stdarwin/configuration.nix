@@ -24,13 +24,34 @@
   # Needed for nvidia drivers
   nixpkgs.config.allowUnfree = true;
 
-  # Use the systemd-boot EFI boot loader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelParams = ["acpi_enforce_resources=lax"];
-  boot.kernelModules = [ "nct6775" ];
+  # Boot options
+  boot = {
+    loader = {
+
+      # Using grub on darwin because it seems to work better with
+      # Windows dual boot
+      grub = {
+        enable = true;
+        efiSupport = true;
+        useOSProber = true;
+        devices = [ "nodev" ];
+      };
+
+      efi = {
+        canTouchEfiVariables = true;
+      };
+    };
+
+    kernelParams = ["acpi_enforce_resources=lax"];
+    kernelModules = [ "nct6775" ];
+  };
 
   networking.hostName = "stdarwin";
+
+  # Windows needs a reg tweak to support UTC in the hardware
+  # clock, rather than mess with that, just make NixOS use
+  # local time instead :(
+  time.hardwareClockInLocalTime = true;
 
   # Name interfaces
   services.udev.extraRules =
@@ -209,6 +230,9 @@
     # NixOS allows either a lightweight build (default) or full build of PulseAudio to be installed.
     # Only the full build has Bluetooth support, so it must be selected here.
     package = pkgs.pulseaudioFull;
+
+    # For steam things
+    support32Bit = true;
   };
 
   # https://nixos.wiki/wiki/Accelerated_Video_Playback
@@ -257,8 +281,13 @@
     # Wine with support for both 32-bit and 64-bit applications
     (wineWowPackages.staging.override {
       vulkanSupport = true;
-      # vkd3dSupport = true;
+      vkd3dSupport = true;
     })
+
+    # Games
+    steam
+    steam-run
+    playonlinux
 
     # Useful for QT things
     hicolor-icon-theme
