@@ -139,6 +139,9 @@
 
 	  (define-key evil-normal-state-local-map (kbd "C-c TAB") 'psc-ide-add-import)
 	  (define-key evil-insert-state-local-map (kbd "C-c TAB") 'psc-ide-add-import)
+
+	  (define-key evil-normal-state-local-map (kbd "C-c C-a") 'psc-ide-flycheck-insert-suggestion)
+	  (define-key evil-insert-state-local-map (kbd "C-c C-a") 'psc-ide-flycheck-insert-suggestion)
     ))
 
 (add-hook 'psc-ide-mode-hook
