@@ -47,6 +47,11 @@
 (use-package company)
 
 ;; -----------------------------------------------------------------------------
+;; Flycheck
+;; -----------------------------------------------------------------------------
+(use-package flycheck)
+
+;; -----------------------------------------------------------------------------
 ;; Themes
 ;; -----------------------------------------------------------------------------
 ;; Outdoor use
@@ -123,8 +128,13 @@
   (lambda ()
     (psc-ide-mode)
     (company-mode)
-    ;;(flycheck-mode)
-    (turn-on-purescript-indentation)))
+    (flycheck-mode)
+    (turn-on-purescript-indentation)
+	  (define-key evil-normal-state-local-map (kbd "C-j") 'flycheck-next-error)
+	  (define-key evil-insert-state-local-map (kbd "C-j") 'flycheck-next-error)
+	  (define-key evil-normal-state-local-map (kbd "C-k") 'flycheck-previous-error)
+	  (define-key evil-insert-state-local-map (kbd "C-k") 'flycheck-previous-error)
+    ))
 
 (add-hook 'psc-ide-mode-hook
 	  (lambda ()

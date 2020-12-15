@@ -38,8 +38,8 @@
         epkgs.melpaPackages.erlang
         epkgs.melpaPackages.company-erlang
 
-        # epkgs.melpaPackages.flycheck
-        # epkgs.melpaPackages.flymake-cursor
+        epkgs.melpaPackages.flycheck
+        epkgs.melpaPackages.flymake-cursor
 
         # Web Things
         epkgs.melpaPackages.web-mode
