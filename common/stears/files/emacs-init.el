@@ -19,6 +19,12 @@
 (setq require-final-newline t)
 
 ;; -----------------------------------------------------------------------------
+;; Show Indent Guides
+;; -----------------------------------------------------------------------------
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+(setq highlight-indent-guides-method 'character)
+
+;; -----------------------------------------------------------------------------
 ;; Evil, because why would you do anything else? }-)
 ;; -----------------------------------------------------------------------------
 (use-package
