@@ -6,12 +6,12 @@ let
   private = import ./private { inherit pkgs; };
 
   # Find an extant release here https://repo.skype.com/deb/pool/main/s/skypeforlinux/
-  skypeforlinux_latest_version = "8.64.76.10";
+  skypeforlinux_latest_version = "8.68.76.30";
   skypeforlinux_latest = pkgs.skypeforlinux.overrideAttrs (oldAttrs: {
     version = skypeforlinux_latest_version;
     src = pkgs.fetchurl {
       url = "https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_${skypeforlinux_latest_version}_amd64.deb";
-      sha256 = "0rk7z452dpjwblcy21bds586n976c623phfbl4mas3splmgqlair";
+      sha256 = "1pgb4b4jkf97217iyghg84idba5hpgm97hdwl8bbhr8nlbbvhz04";
     };
   });
 in
