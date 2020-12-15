@@ -32,6 +32,7 @@ in
       (import ../keys/pubkey-philip-yk.nix)
       (import ../keys/pubkey-philip-kp2a.nix)
       (import ../keys/pubkey-philip-old.nix)
+      (import ../keys/pubkey-philip-iphone.nix)
     ];
   };
 
