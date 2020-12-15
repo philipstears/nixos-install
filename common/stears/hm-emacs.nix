@@ -25,6 +25,7 @@
         epkgs.melpaPackages.yaml-mode
         epkgs.melpaPackages.terraform-mode
         epkgs.melpaPackages.helm-ag
+        epkgs.melpaPackages.highlight-indent-guides
 
         epkgs.melpaPackages.pastelmac-theme
         epkgs.melpaPackages.monokai-theme
