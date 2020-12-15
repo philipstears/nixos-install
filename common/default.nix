@@ -90,6 +90,7 @@ in
     skypeforlinux_latest
     slack
     zoom-us
+    teams
 
     # Security
     gnupg
