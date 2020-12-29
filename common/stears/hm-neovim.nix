@@ -31,8 +31,10 @@ in
       # Specific Languages
       customPlugins.elm-vim
       customPlugins.purescript-vim
-      customPlugins.vim-jsx
-      standardPlugins.typescript-vim
+      # customPlugins.vim-jsx-typescript
+      standardPlugins.vim-jsx-pretty
+      standardPlugins.yats-vim
+      # standardPlugins.typescript-vim
       standardPlugins.vim-markdown
       standardPlugins.vim-nix
       standardPlugins.verilog_systemverilog-vim

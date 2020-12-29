@@ -100,4 +100,7 @@
   networking.networkmanager.enable = true;
 
   services.xserver.xkbOptions = "caps:ctrl_modifier";
+
+  # For iDevice access
+  services.usbmuxd.enable = true;
 }

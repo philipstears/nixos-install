@@ -5,7 +5,7 @@
 {
   programs.emacs = {
     enable = true;
-    package = pkgs.emacs25-nox;
+    package = pkgs.emacs-nox;
     extraPackages = (
       epkgs:
       [
