@@ -155,15 +155,20 @@ let g:airline#extensions#ale#enabled = 1
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-if !empty($RACER_PATH)
-  let g:deoplete#sources#rust#racer_binary=$RACER_PATH
-  let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
-endif
+function! ConfigureDeoplete()
+  if !empty($RACER_PATH)
+    let g:deoplete#sources#rust#racer_binary=$RACER_PATH
+    let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
+  endif
 
-let g:deoplete#sources = {
-      \'rust': ['ale', 'racer'],
-      \ '_': ['ale'],
-      \}
+  call deoplete#custom#option('sources', {
+  \'rust': ['ale', 'racer'],
+  \ '_': ['ale'],
+  \})
+endfunction
+
+autocmd VimEnter * call ConfigureDeoplete()
+
 let g:deoplete#enable_at_startup = 1
 
 
