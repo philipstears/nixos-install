@@ -83,16 +83,11 @@ in
   # TODO: Does this achieve anything?
   services.screen-locker = {
     enable = true;
-    lockCmd = "${pkgs.i3lock}/bin/i3lock -i ~/.config/lockscreen/towelday2013-A.png";
+    lockCmd = "${pkgs.i3lock}/bin/i3lock -i ${./files/lockscreen/towelday2013-A.png}";
   };
 
   home.file.".config/wallpapers" = {
     source = ./files/wallpapers;
-    recursive = true;
-  };
-
-  home.file.".config/lockscreen" = {
-    source = ./files/lockscreen;
     recursive = true;
   };
 
