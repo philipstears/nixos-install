@@ -1,4 +1,10 @@
 {
+  "languageserver": {
+    "erlang": {
+      "command": "erlang_ls",
+      "filetypes": ["erlang"]
+    }
+  },
   "coc.preferences.formatOnSaveFiletypes": [ "rust" ],
   "rust-client.disableRustup": true
 }
