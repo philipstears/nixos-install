@@ -4,48 +4,34 @@
 " shells)
 set encoding=utf-8
 
-" On Windows, also use '.vim' instead of 'vimfiles'; this makes synchronization
-" across (heterogeneous) systems easier.
-if has('win32') || has('win64')
-  set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-endif
+" Use Vim settings, rather than Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
 
-" SWP files don't belong where I'm editing goshdarnit
 if has('unix')
-  set dir=~/tmp
+
+  " NOTE: the double-slash at the end is deliberate, it tells vim to create
+  " the file with its full path where slashes are changed to percent symbols,
+  " and prevents clashes between files with the same name in different places
+  " (happens a lot, e.g. with rust)
+
+  " Move swp files
+  set directory=~/tmp//
+
+  " Move backup files
+  set backupdir=~/tmp//
 endif
 
 " Philip: we always want a status line
 set laststatus=2
 
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
-
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
-
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-else
-  " Philip - I don't want backup files hanging about littering
-  " my workspace
-  set nobackup
-  set writebackup
-endif
 
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -141,52 +127,46 @@ elseif !empty($userprofile)
 	cd $userprofile
 endif
 
-" Rust stuff
-let g:ale_fixers = {
-      \   'rust': ['rustfmt'],
-      \}
-
-let g:ale_linters = {
-      \'rust': ['rls'],
-      \}
-
-let g:ale_fix_on_save = 1
-let g:airline#extensions#ale#enabled = 1
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-
-function! ConfigureDeoplete()
-  if !empty($RACER_PATH)
-    let g:deoplete#sources#rust#racer_binary=$RACER_PATH
-    let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
-  endif
-
-  call deoplete#custom#option('sources', {
-  \'rust': ['ale', 'racer'],
-  \ '_': ['ale'],
-  \})
-endfunction
-
-autocmd VimEnter * call ConfigureDeoplete()
-
-let g:deoplete#enable_at_startup = 1
+" " Rust stuff
+" let g:ale_fixers = {
+"       \   'rust': ['rustfmt'],
+"       \}
+"
+" let g:ale_linters = {
+"       \'rust': ['rls'],
+"       \}
+"
+" let g:ale_fix_on_save = 1
+" let g:airline#extensions#ale#enabled = 1
+" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+"
+" function! ConfigureDeoplete()
+"   if !empty($RACER_PATH)
+"     let g:deoplete#sources#rust#racer_binary=$RACER_PATH
+"     let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
+"   endif
+"
+"   call deoplete#custom#option('sources', {
+"   \'rust': ['ale', 'racer'],
+"   \ '_': ['ale'],
+"   \})
+" endfunction
+"
+" autocmd VimEnter * call ConfigureDeoplete()
+"
+" let g:deoplete#enable_at_startup = 1
 
 
 set guioptions-=T " No toolbar
 set guioptions-=t " No tear-off menus
 
- " automatically open and close the popup menu / preview window
- au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+" automatically open and close the popup menu / preview window
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 
  " Display-line based nav
 nmap j gj
 nmap k gk
-
- " Disable arrow keys
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
 
 inoremap <C-Space> <C-x><C-o>
 inoremap <C-@> <C-x><C-o>

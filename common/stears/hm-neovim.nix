@@ -11,6 +11,8 @@ in
     universal-ctags
   ];
 
+  home.file.".config/nvim/coc-settings.json".source = ./files/coc-settings.json;
+
   programs.neovim = {
     enable = true;
     viAlias = true;
@@ -23,26 +25,27 @@ in
       standardPlugins.editorconfig-vim
       standardPlugins.nerdtree
       standardPlugins.vim-surround
+      standardPlugins.vim-easy-align
       standardPlugins.vim-fugitive
       standardPlugins.vim-airline
       standardPlugins.tagbar
       # standardPlugins.vim-gutentags
 
+      # LSP
+      standardPlugins.coc-nvim
+
       # Specific Languages
       customPlugins.elm-vim
       customPlugins.purescript-vim
-      # customPlugins.vim-jsx-typescript
       standardPlugins.vim-jsx-pretty
       standardPlugins.yats-vim
-      # standardPlugins.typescript-vim
+      standardPlugins.coc-tsserver
       standardPlugins.vim-markdown
       standardPlugins.vim-nix
       standardPlugins.verilog_systemverilog-vim
 
       # Rust Bits
-      standardPlugins.ale
-      standardPlugins.deoplete-nvim
-      standardPlugins.deoplete-rust
+      standardPlugins.coc-rls
       standardPlugins.vim-toml
 
       # Colour Schemes
