@@ -23,6 +23,9 @@
       init = {
         defaultBranch = "main";
       };
+      pull = {
+        ff = "only";
+      };
       # interactive = {
       #   diffFilter = "${pkgs.gitAndTools.delta}/bin/delta";
       # };
