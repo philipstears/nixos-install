@@ -60,8 +60,11 @@
 ;; Indoor use
 (use-package monokai-theme)
 
-(defun outdoors() (interactive) (load-theme 'pastelmac))
-(defun indoors() (interactive) (load-theme 'monokai))
+(defun outdoors() (interactive) (load-theme 'pastelmac t))
+(defun indoors() (interactive) (load-theme 'monokai t))
+
+;; The default theme
+(indoors)
 
 ;; -----------------------------------------------------------------------------
 ;; Erlang
@@ -154,9 +157,17 @@
 ;; -----------------------------------------------------------------------------
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
+
+(setq c-basic-offset tab-width)
 (defvaralias 'c-basic-offset 'tab-width)
+
+(setq cperl-indent-level tab-width)
 (defvaralias 'cperl-indent-level 'tab-width)
+
+(setq erlang-indent-level tab-width)
 (defvaralias 'erlang-indent-level 'tab-width)
+
+(setq js-indent-level tab-width)
 (defvaralias 'js-indent-level 'tab-width)
 
 ;; -----------------------------------------------------------------------------
