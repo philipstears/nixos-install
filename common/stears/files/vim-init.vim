@@ -269,6 +269,9 @@ tnoremap <Esc> <C-\><C-n>
 " delays and poor user experience.
 set updatetime=300
 
+" Show signs in the number column (sadly not in the neovim I have)
+" set signcolumn=number
+
 " Use <c-space> to trigger completion.
 if has('nvim')
   inoremap <silent><expr> <c-space> coc#refresh()
