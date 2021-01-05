@@ -52,6 +52,31 @@
 (use-package flycheck)
 
 ;; -----------------------------------------------------------------------------
+;; LSP Mode
+;; -----------------------------------------------------------------------------
+(use-package lsp-mode
+   :hook (
+          (erlang-mode . lsp)
+          ;; (purescript-mode . lsp)
+          ;; (lsp-mode . lsp-enable-which-key-integration)
+          )
+   :commands lsp
+   ;; :config
+   ;; (lsp-register-custom-settings
+   ;; '(("purescript.codegenTargets" ["corefn"])
+   ;;   ;;("purescript.pscIdelogLevel" "all")
+   ;;   ("purescript.addSpagoSources" t)))
+   ;; (setq lsp-prefer-flymake nil ;; Prefer using lsp-ui (flycheck) over flymake.
+   ;;       lsp-modeline-code-actions-segments '(count icon)
+   ;;       lsp-modeline-diagnostics-mode 1
+   ;;       lsp-enable-xref t
+   ;;       lsp-log-io nil
+   ;;       lsp-diagnostic-clean-after-change nil
+   ;;       ;; lsp-purescript-server-args '("--stdio" "--log" "/tmp/pls.log" "--config" "{'settings': {'purescript' : {'codegenTargets': ['corefn']}}}")
+   ;;       )
+)
+
+;; -----------------------------------------------------------------------------
 ;; Themes
 ;; -----------------------------------------------------------------------------
 ;; Outdoor use
@@ -74,30 +99,21 @@
   :init
   (setq erlang-electric-commands t)
   )
+
 ;; -----------------------------------------------------------------------------
-;; EDTS (Erlang) - note that we use a custom version of EDTS so this is more
-;; involved than if we could just use the version on MELPA
+;; Erlang (core functionality is provided by lsp-mode and erlang_ls
 ;; -----------------------------------------------------------------------------
-
-;; EDTS requirements
-(use-package auto-highlight-symbol)
-(use-package eproject)
-(use-package auto-complete)
-
-;; Stop EDTS complaining about the fact that it's being loaded directly
-(setq edts-inhibit-package-check t)
-
-;; Load it
-(if (locate-file "erl" exec-path)
-  (use-package edts-start
-               :load-path "stears/edts" ;; Relative to emacs.d/
-               )
-  )
-
 (add-hook 'erlang-mode-hook
 	  (lambda ()
-	    (define-key evil-normal-state-local-map (kbd "C-]") 'edts-find-source-under-point)
-	    (define-key evil-insert-state-local-map (kbd "C-]") 'edts-find-source-under-point)
+      (define-key evil-normal-state-local-map (kbd "C-j") 'flycheck-next-error)
+      (define-key evil-insert-state-local-map (kbd "C-j") 'flycheck-next-error)
+
+      (define-key evil-normal-state-local-map (kbd "C-k") 'flycheck-previous-error)
+      (define-key evil-insert-state-local-map (kbd "C-k") 'flycheck-previous-error)
+
+	    (define-key evil-normal-state-local-map (kbd "C-]") 'lsp-find-definition)
+	    (define-key evil-insert-state-local-map (kbd "C-]") 'lsp-find-definition)
+
       (modify-syntax-entry ?_ "w")))
 
 ;; -----------------------------------------------------------------------------

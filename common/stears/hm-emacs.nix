@@ -41,6 +41,10 @@
         epkgs.melpaPackages.flycheck
         # epkgs.melpaPackages.flymake-cursor
 
+        # Language Servers!
+        epkgs.melpaPackages.lsp-mode
+        epkgs.melpaPackages.lsp-ui
+
         # Web Things
         epkgs.melpaPackages.web-mode
         epkgs.melpaPackages.elm-mode
