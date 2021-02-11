@@ -8,12 +8,12 @@ Config
   , sepChar = "%"
   , alignSep = "}{"
 
-  , template = "%StdinReader% | %cpu% | %memory% | TN: %trusted% LN: %lab% }{ KB: %kb-layout% | Spk: %out-vol% | Mic: %in-vol% | <fc=#ee9a00>%date%</fc>"
+  , template = "%StdinReader% | %cpu% | %memory% | TN: %trusted% DMZ: %dmz% }{ KB: %kb-layout% | Spk: %out-vol% | Mic: %in-vol% | <fc=#ee9a00>%date%</fc>"
 
   , commands =
     [ Run StdinReader
     , Run Network "trusted" ["-t", "<rx> / <tx>", "-S", "true", "-L","0","-H","3000","--normal","darkgreen", "--low", "darkgreen", "--high","red"] 10
-    , Run Network "lab" ["-t", "<rx> / <tx>", "-S", "true", "-L","0","-H","3000","--normal","darkgreen", "--low", "darkgreen", "--high","red"] 10
+    , Run Network "dmz" ["-t", "<rx> / <tx>", "-S", "true", "-L","0","-H","3000","--normal","darkgreen", "--low", "darkgreen", "--high","red"] 10
 
     , Run Cpu
 	    [ "-t", "CPU: <total>%"

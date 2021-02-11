@@ -53,18 +53,23 @@
   # local time instead :(
   time.hardwareClockInLocalTime = true;
 
+  fileSystems."/video" =
+  { device = "/dev/disk/by-label/Video";
+    fsType = "exfat";
+  };
+
   # Name interfaces
   services.udev.extraRules =
     ''
-      KERNEL=="eth*", ATTR{address}=="a8:5e:45:ce:7c:b0", NAME="trusted"
-      KERNEL=="eth*", ATTR{address}=="a0:36:9f:21:7e:90", NAME="lab"
+      KERNEL=="eth*", ATTR{address}=="a8:5e:45:ce:7c:b0", NAME="onboard"
+      KERNEL=="eth*", ATTR{address}=="a0:36:9f:21:7e:90", NAME="trusted"
     '';
 
   # Open ports in the firewall.
   networking.firewall.allowPing = true;
 
   networking.firewall.trustedInterfaces = [
-    "lab"
+    "trusted"
   ];
 
   networking.firewall.interfaces.trusted = {
@@ -104,32 +109,6 @@
   };
 
   networking.interfaces = {
-    lab = {
-      ipv4 = {
-        addresses = [
-          { address = "10.24.24.1"; prefixLength = 16; }
-          { address = "10.24.24.2"; prefixLength = 16; }
-          { address = "10.24.24.3"; prefixLength = 16; }
-          { address = "10.24.24.4"; prefixLength = 16; }
-
-          { address = "10.24.24.5"; prefixLength = 16; }
-          { address = "10.24.24.6"; prefixLength = 16; }
-          { address = "10.24.24.7"; prefixLength = 16; }
-          { address = "10.24.24.8"; prefixLength = 16; }
-
-          { address = "10.24.24.9"; prefixLength = 16; }
-          { address = "10.24.24.10"; prefixLength = 16; }
-          { address = "10.24.24.11"; prefixLength = 16; }
-          { address = "10.24.24.12"; prefixLength = 16; }
-
-          { address = "10.24.24.13"; prefixLength = 16; }
-          { address = "10.24.24.14"; prefixLength = 16; }
-          { address = "10.24.24.15"; prefixLength = 16; }
-          { address = "10.24.24.16"; prefixLength = 16; }
-        ];
-      };
-    };
-
     dmz = {
       ipv4 = {
         addresses = [
@@ -151,7 +130,7 @@
   networking.dhcpcd.extraConfig =
     ''
       # Disable DHCP on the DMZ
-      denyinterfaces dmz lab
+      denyinterfaces dmz
 
       # Disable APIPA addresses
       noipv4ll
