@@ -58,6 +58,21 @@
     fsType = "exfat";
   };
 
+  fileSystems."/scratch" =
+  { device = "/dev/disk/by-label/Scratch";
+    fsType = "exfat";
+  };
+
+  fileSystems."/transfer" =
+  { device = "/dev/disk/by-label/TRANSFER";
+    fsType = "vfat";
+  };
+
+  fileSystems."/windows" =
+  { device = "/dev/disk/by-label/System";
+    fsType = "ntfs";
+  };
+
   # Name interfaces
   services.udev.extraRules =
     ''
