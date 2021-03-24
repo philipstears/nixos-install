@@ -103,6 +103,7 @@ in
     zoom-us
     teams
     discord_latest
+    signal-desktop
 
     # Security
     gnupg
@@ -114,6 +115,7 @@ in
     gnome3.dconf-editor
     gnome3.gnome-screenshot
     mate.mate-calc
+    mate.caja
     dmenu
     xclip
     alacritty
