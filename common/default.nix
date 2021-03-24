@@ -14,6 +14,17 @@ let
       sha256 = "1pgb4b4jkf97217iyghg84idba5hpgm97hdwl8bbhr8nlbbvhz04";
     };
   });
+
+  # Whichever version discord says is latest
+  discord_latest_version = "0.0.14";
+  discord_latest = pkgs.discord.overrideAttrs (oldAttrs: {
+    version = discord_latest_version;
+    src = pkgs.fetchurl {
+      url = "https://dl.discordapp.net/apps/linux/${discord_latest_version}/discord-${discord_latest_version}.tar.gz";
+      sha256 = "1rq490fdl5pinhxk8lkfcfmfq7apj79jzf3m14yql1rc9gpilrf2";
+    };
+  });
+
 in
 {
   imports =
@@ -91,6 +102,7 @@ in
     slack
     zoom-us
     teams
+    discord_latest
 
     # Security
     gnupg
