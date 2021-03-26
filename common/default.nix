@@ -107,6 +107,7 @@ in
 
     # Security
     gnupg
+    pinentry-curses
     srm
     keepassxc
 
