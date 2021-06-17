@@ -328,6 +328,12 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
+" Show actions
+nnoremap <silent><nowait> <space>t  :<C-u>CocAction<cr>
+
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+
 " " ------------------------------------------------------------------------------
 " " TSX Colors (from https://github.com/peitalin/vim-jsx-typescript)
 " " ------------------------------------------------------------------------------
