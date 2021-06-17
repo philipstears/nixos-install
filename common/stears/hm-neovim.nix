@@ -36,7 +36,7 @@ in
 
       # Specific Languages
       customPlugins.elm-vim
-      customPlugins.purescript-vim
+      # customPlugins.purescript-vim
       standardPlugins.vim-jsx-pretty
       standardPlugins.yats-vim
       standardPlugins.coc-tsserver

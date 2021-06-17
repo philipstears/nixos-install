@@ -35,8 +35,8 @@
         epkgs.melpaPackages.auto-complete
         epkgs.melpaPackages.auto-highlight-symbol
 
-        epkgs.melpaPackages.erlang
-        epkgs.melpaPackages.company-erlang
+        # epkgs.melpaPackages.erlang
+        # epkgs.melpaPackages.company-erlang
 
         epkgs.melpaPackages.flycheck
         # epkgs.melpaPackages.flymake-cursor
