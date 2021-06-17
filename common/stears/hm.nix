@@ -15,6 +15,7 @@ let
     ./hm-lorri.nix
     ./hm-utils.nix
     ./hm-erlang-ls-config.nix
+    ./hm-vscode.nix
 
     # NixOS-only stuff
     ./hm-postman.nix
