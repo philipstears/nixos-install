@@ -38,34 +38,33 @@
   # Name interfaces
   services.udev.extraRules =
     ''
-      KERNEL=="eth*", ATTR{address}=="54:b2:03:04:7d:68", NAME="trusted"
-      KERNEL=="eth*", ATTR{address}=="54:b2:03:04:7d:67", NAME="unused"
-      KERNEL=="eth*", ATTR{address}=="00:30:93:10:19:ad", NAME="lab"
+      KERNEL=="eth*", ATTR{address}=="54:b2:03:04:7d:68", NAME="onboard1-unused"
+      KERNEL=="eth*", ATTR{address}=="54:b2:03:04:7d:67", NAME="onboard2-unused"
+      KERNEL=="eth*", ATTR{address}=="00:30:93:10:19:ad", NAME="sonnet-main"
     '';
 
   # Open ports in the firewall.
   networking.firewall.allowPing = true;
 
   networking.firewall.trustedInterfaces = [
-    "lab"
   ];
 
-  networking.firewall.interfaces.trusted = {
+  networking.firewall.interfaces.lab = {
     allowedTCPPorts = [
       22    # SSH
-      5060  # SIP
+      # 5060  # SIP
       3080  # Local HTTP
       30443 # Local HTTPS
     ];
 
     allowedUDPPorts = [
-      5060  # SIP
+      # 5060  # SIP
       5353  # mDNS
     ];
 
-    allowedUDPPortRanges = [
-      { from = 4000; to = 4100; } # RTP
-    ];
+    # allowedUDPPortRanges = [
+    #   { from = 4000; to = 4100; } # RTP
+    # ];
   };
 
   networking.firewall.allowedTCPPorts = [
@@ -73,56 +72,38 @@
     80  # NGINX (restrictions are handled by NGINX itself)
   ];
 
-  networking.firewall.extraCommands = ''
+  # networking.firewall.extraCommands = ''
 
-    # Allow the router to access services over the DMZ interface
-    iptables -I nixos-fw 1 -i dmz -s 82.68.28.6 -p tcp -m tcp --dport 22 -j nixos-fw-accept
+  #   # Allow the router to access services over the DMZ interface
+  #   iptables -I nixos-fw 1 -i dmz -s 82.68.28.6 -p tcp -m tcp --dport 22 -j nixos-fw-accept
 
-    # # Restricted access to SIP
-    # iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p udp -m udp --dport 5060 -j nixos-fw-accept
-    # iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p tcp -m tcp --dport 5060 -j nixos-fw-accept
-    # iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p tcp -m tcp --dport 5061 -j nixos-fw-accept
-    # iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p udp -m udp --dport 4000:4100 -j nixos-fw-accept
+  #   # # Restricted access to SIP
+  #   # iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p udp -m udp --dport 5060 -j nixos-fw-accept
+  #   # iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p tcp -m tcp --dport 5060 -j nixos-fw-accept
+  #   # iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p tcp -m tcp --dport 5061 -j nixos-fw-accept
+  #   # iptables -I nixos-fw 1 -i dmz -s 213.95.30.38 -p udp -m udp --dport 4000:4100 -j nixos-fw-accept
 
-    # Allow anyone access to SIP (for temporary testing)
-    iptables -I nixos-fw 1 -i dmz -p udp -m udp --dport 5060 -j nixos-fw-accept
-    iptables -I nixos-fw 1 -i dmz -p tcp -m tcp --dport 5060 -j nixos-fw-accept
-    iptables -I nixos-fw 1 -i dmz -p tcp -m tcp --dport 5061 -j nixos-fw-accept
-    iptables -I nixos-fw 1 -i dmz -p udp -m udp --dport 4000:4100 -j nixos-fw-accept
-  '';
+  #   # Allow anyone access to SIP (for temporary testing)
+  #   iptables -I nixos-fw 1 -i dmz -p udp -m udp --dport 5060 -j nixos-fw-accept
+  #   iptables -I nixos-fw 1 -i dmz -p tcp -m tcp --dport 5060 -j nixos-fw-accept
+  #   iptables -I nixos-fw 1 -i dmz -p tcp -m tcp --dport 5061 -j nixos-fw-accept
+  #   iptables -I nixos-fw 1 -i dmz -p udp -m udp --dport 4000:4100 -j nixos-fw-accept
+  # '';
 
   networking.vlans = {
-    dmz =   { id = 16; interface = "trusted"; };
+    lab =   { id = 32; interface = "sonnet-main"; };
   };
 
   networking.interfaces = {
-    lab = {
-      ipv4 = {
-        addresses = [
-          { address = "10.24.16.1"; prefixLength = 16; }
-          { address = "10.24.16.2"; prefixLength = 16; }
-          { address = "10.24.16.3"; prefixLength = 16; }
-          { address = "10.24.16.4"; prefixLength = 16; }
 
-          { address = "10.24.16.5"; prefixLength = 16; }
-          { address = "10.24.16.6"; prefixLength = 16; }
-          { address = "10.24.16.7"; prefixLength = 16; }
-          { address = "10.24.16.8"; prefixLength = 16; }
-
-          { address = "10.24.16.9"; prefixLength = 16; }
-          { address = "10.24.16.10"; prefixLength = 16; }
-          { address = "10.24.16.11"; prefixLength = 16; }
-          { address = "10.24.16.12"; prefixLength = 16; }
-
-          { address = "10.24.16.13"; prefixLength = 16; }
-          { address = "10.24.16.14"; prefixLength = 16; }
-          { address = "10.24.16.15"; prefixLength = 16; }
-          { address = "10.24.16.16"; prefixLength = 16; }
-        ];
-      };
+    # Don't use the untagged network
+    sonnet-main = {
+      useDHCP = false;
     };
 
-    dmz = {
+    lab = {
+      useDHCP = false;
+
       ipv4 = {
         addresses = [
           { address = "82.68.28.3"; prefixLength = 29; }
@@ -134,24 +115,22 @@
 
   networking.defaultGateway = {
     address = "82.68.28.5";
-    interface = "dmz";
+    interface = "lab";
     metric = 10;
   };
 
-  networking.nameservers = [];
+  networking.nameservers = [
+    "82.68.28.5"
+  ];
 
   networking.dhcpcd.extraConfig =
     ''
-      # Disable DHCP on the DMZ
-      denyinterfaces dmz
-
       # Disable APIPA addresses
       noipv4ll
 
-      # Make sure the trusted LAN
-      # has a lower priority than
-      # than the DMZ
-      interface trusted
+      # Make sure sonnet-main has a lower priority than
+      # than lab
+      interface sonnet-main
       metric 100
     '';
 
