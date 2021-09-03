@@ -77,32 +77,32 @@
   services.udev.extraRules =
     ''
       KERNEL=="eth*", ATTR{address}=="a8:5e:45:ce:7c:b0", NAME="onboard"
-      KERNEL=="eth*", ATTR{address}=="a0:36:9f:21:7e:90", NAME="trusted"
+      KERNEL=="eth*", ATTR{address}=="a0:36:9f:21:7e:90", NAME="main"
     '';
 
   # Open ports in the firewall.
   networking.firewall.allowPing = true;
 
-  networking.firewall.trustedInterfaces = [
-    "trusted"
-  ];
+  # networking.firewall.trustedInterfaces = [
+  #   "lab"
+  # ];
 
-  networking.firewall.interfaces.trusted = {
+  networking.firewall.interfaces.lab = {
     allowedTCPPorts = [
       22    # SSH
-      5060  # SIP
+      # 5060  # SIP
       3080  # Local HTTP
       30443 # Local HTTPS
     ];
 
     allowedUDPPorts = [
-      5060  # SIP
+      # 5060  # SIP
       5353  # mDNS
     ];
 
-    allowedUDPPortRanges = [
-      { from = 4000; to = 4100; } # RTP
-    ];
+    # allowedUDPPortRanges = [
+    #   { from = 4000; to = 4100; } # RTP
+    # ];
   };
 
   networking.firewall.allowedTCPPorts = [
@@ -110,21 +110,29 @@
     80  # NGINX (restrictions are handled by NGINX itself)
   ];
 
-  networking.firewall.extraCommands = ''
+  # networking.firewall.extraCommands = ''
 
-    # Allow anyone access to SIP (for temporary testing)
-    iptables -I nixos-fw 1 -i dmz -p udp -m udp --dport 5060 -j nixos-fw-accept
-    iptables -I nixos-fw 1 -i dmz -p tcp -m tcp --dport 5060 -j nixos-fw-accept
-    iptables -I nixos-fw 1 -i dmz -p tcp -m tcp --dport 5061 -j nixos-fw-accept
-    iptables -I nixos-fw 1 -i dmz -p udp -m udp --dport 4000:4100 -j nixos-fw-accept
-  '';
+  #   # Allow anyone access to SIP (for temporary testing)
+  #   iptables -I nixos-fw 1 -i dmz -p udp -m udp --dport 5060 -j nixos-fw-accept
+  #   iptables -I nixos-fw 1 -i dmz -p tcp -m tcp --dport 5060 -j nixos-fw-accept
+  #   iptables -I nixos-fw 1 -i dmz -p tcp -m tcp --dport 5061 -j nixos-fw-accept
+  #   iptables -I nixos-fw 1 -i dmz -p udp -m udp --dport 4000:4100 -j nixos-fw-accept
+  # '';
 
   networking.vlans = {
-    dmz =   { id = 16; interface = "trusted"; };
+    lab =   { id = 32; interface = "main"; };
   };
 
   networking.interfaces = {
-    dmz = {
+
+    # Don't use the main interface
+    main = {
+      useDHCP = false;
+    };
+
+    lab = {
+      useDHCP = false;
+
       ipv4 = {
         addresses = [
           { address = "82.68.28.2"; prefixLength = 29; }
@@ -136,24 +144,22 @@
 
   networking.defaultGateway = {
     address = "82.68.28.5";
-    interface = "dmz";
+    interface = "lab";
     metric = 10;
   };
 
-  networking.nameservers = [];
+  networking.nameservers = [
+    "82.68.28.5"
+  ];
 
   networking.dhcpcd.extraConfig =
     ''
-      # Disable DHCP on the DMZ
-      denyinterfaces dmz
-
       # Disable APIPA addresses
       noipv4ll
 
-      # Make sure the trusted LAN
-      # has a lower priority than
-      # than the DMZ
-      interface trusted
+      # Make sure main has a lower priority than
+      # than lab
+      interface main
       metric 100
     '';
 
@@ -248,6 +254,19 @@
 
     # I'm using an Apple keyboard, make it sane
     xkbOptions = "altwin:swap_alt_win,caps:ctrl_modifier";
+  };
+
+  services.apcupsd = {
+    enable = true;
+
+    # This is the default, but be explicit, documented at
+    # `man apcupsd.conf`
+    configText =  ''
+      UPSTYPE usb
+      NISIP 127.0.0.1
+      BATTERYLEVEL 50
+      MINUTES 5
+    '';
   };
 
 
