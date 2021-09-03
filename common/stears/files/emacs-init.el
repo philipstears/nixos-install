@@ -51,30 +51,30 @@
 ;; -----------------------------------------------------------------------------
 (use-package flycheck)
 
-;; -----------------------------------------------------------------------------
-;; LSP Mode
-;; -----------------------------------------------------------------------------
-(use-package lsp-mode
-   :hook (
-          (erlang-mode . lsp)
-          ;; (purescript-mode . lsp)
-          ;; (lsp-mode . lsp-enable-which-key-integration)
-          )
-   :commands lsp
-   ;; :config
-   ;; (lsp-register-custom-settings
-   ;; '(("purescript.codegenTargets" ["corefn"])
-   ;;   ;;("purescript.pscIdelogLevel" "all")
-   ;;   ("purescript.addSpagoSources" t)))
-   ;; (setq lsp-prefer-flymake nil ;; Prefer using lsp-ui (flycheck) over flymake.
-   ;;       lsp-modeline-code-actions-segments '(count icon)
-   ;;       lsp-modeline-diagnostics-mode 1
-   ;;       lsp-enable-xref t
-   ;;       lsp-log-io nil
-   ;;       lsp-diagnostic-clean-after-change nil
-   ;;       ;; lsp-purescript-server-args '("--stdio" "--log" "/tmp/pls.log" "--config" "{'settings': {'purescript' : {'codegenTargets': ['corefn']}}}")
-   ;;       )
-)
+;; ;; -----------------------------------------------------------------------------
+;; ;; LSP Mode
+;; ;; -----------------------------------------------------------------------------
+;; (use-package lsp-mode
+;;    :hook (
+;;           (erlang-mode . lsp)
+;;           ;; (purescript-mode . lsp)
+;;           ;; (lsp-mode . lsp-enable-which-key-integration)
+;;           )
+;;    :commands lsp
+;;    ;; :config
+;;    ;; (lsp-register-custom-settings
+;;    ;; '(("purescript.codegenTargets" ["corefn"])
+;;    ;;   ;;("purescript.pscIdelogLevel" "all")
+;;    ;;   ("purescript.addSpagoSources" t)))
+;;    ;; (setq lsp-prefer-flymake nil ;; Prefer using lsp-ui (flycheck) over flymake.
+;;    ;;       lsp-modeline-code-actions-segments '(count icon)
+;;    ;;       lsp-modeline-diagnostics-mode 1
+;;    ;;       lsp-enable-xref t
+;;    ;;       lsp-log-io nil
+;;    ;;       lsp-diagnostic-clean-after-change nil
+;;    ;;       ;; lsp-purescript-server-args '("--stdio" "--log" "/tmp/pls.log" "--config" "{'settings': {'purescript' : {'codegenTargets': ['corefn']}}}")
+;;    ;;       )
+;; )
 
 ;; -----------------------------------------------------------------------------
 ;; Themes
@@ -116,12 +116,12 @@
 
       (modify-syntax-entry ?_ "w")))
 
-;; -----------------------------------------------------------------------------
-;; Elm
-;; -----------------------------------------------------------------------------
-(use-package elm-mode)
-(add-to-list 'company-backends 'company-elm)
-(setq elm-format-on-save t)
+;; ;; -----------------------------------------------------------------------------
+;; ;; Elm
+;; ;; -----------------------------------------------------------------------------
+;; (use-package elm-mode)
+;; (add-to-list 'company-backends 'company-elm)
+;; (setq elm-format-on-save t)
 
 ;; -----------------------------------------------------------------------------
 ;; Typescript
