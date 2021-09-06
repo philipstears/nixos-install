@@ -11,16 +11,6 @@ let
 
   private = import ./private { inherit pkgs; };
 
-  # Find an extant release here https://repo.skype.com/deb/pool/main/s/skypeforlinux/
-  skypeforlinux_latest_version = "8.75.76.113";
-  skypeforlinux_latest = pkgs.skypeforlinux.overrideAttrs (oldAttrs: {
-    version = skypeforlinux_latest_version;
-    src = pkgs.fetchurl {
-      url = "https://repo.skype.com/deb/pool/main/s/skypeforlinux/skypeforlinux_${skypeforlinux_latest_version}_amd64.deb";
-      sha256 = "0mvbfy3j8f8wsavnmqwvanzica9rligq0zbd1bgbflpkhrdsqpsj";
-    };
-  });
-
   # Whichever version discord says is latest
   discord_latest_version = "0.0.15";
   discord_latest = pkgs.discord.overrideAttrs (oldAttrs: {
@@ -104,7 +94,7 @@ in
     # General web things
     firefox-bin
     google-chrome
-    skypeforlinux_latest
+    skypeforlinux
     slack
     zoom-us
     teams
