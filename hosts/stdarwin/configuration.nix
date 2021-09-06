@@ -137,8 +137,8 @@
 
       ipv4 = {
         addresses = [
-          { address = "82.68.28.2"; prefixLength = 29; }
           { address = "82.68.28.1"; prefixLength = 29; }
+          { address = "82.68.28.2"; prefixLength = 29; }
         ];
       };
     };
