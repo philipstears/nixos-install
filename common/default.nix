@@ -3,6 +3,12 @@
 { config, pkgs, lib, ... }:
 
 let
+  home-manager = builtins.fetchGit {
+    url = "https://github.com/nix-community/home-manager.git";
+    rev = "22f6736e628958f05222ddaadd7df7818fe8f59d";
+    ref = "release-20.09";
+  };
+
   private = import ./private { inherit pkgs; };
 
   # Find an extant release here https://repo.skype.com/deb/pool/main/s/skypeforlinux/
@@ -27,9 +33,9 @@ let
 
 in
 {
-  imports =
-    [      ./stears
-    ];
+  imports = [
+    "${home-manager}/nixos"
+  ];
 
   # Can't get this working with virtualbox
   # boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -131,6 +137,13 @@ in
 
     # User-mode File System
     fuse
+
+    # Shared tmux helpers
+    ( writeScriptBin "shared-tmux" ''
+      #!${pkgs.bash}/bin/bash
+      tmux -S /run/colleagues/tmux "''${@}"
+    ''
+    )
 
     # Desktop Env Support Utilities
     ( writeScriptBin "st-audio-get-master-volume" ''
@@ -359,6 +372,65 @@ in
 
   # Enable passwd and co.
   users.mutableUsers = true;
+
+  users.extraGroups.stears = {
+    gid = 1000;
+  };
+
+  users.extraGroups.colleagues = {};
+
+  users.users.stears = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "docker" "wireshark" "video" "vboxusers" "colleagues" ];
+    createHome = true;
+    home = "/home/stears";
+    uid = 1000;
+    group = "stears";
+    shell = "${pkgs.zsh}/bin/zsh";
+    initialPassword = "initial-password";
+
+    openssh.authorizedKeys.keys = [
+      (import ./keys/pubkey-philip-yk.nix)
+      (import ./keys/pubkey-philip-kp2a.nix)
+      (import ./keys/pubkey-philip-old.nix)
+      (import ./keys/pubkey-philip-iphone.nix)
+    ];
+  };
+
+  home-manager.users.stears = import ./stears/hm.nix { inherit pkgs lib; };
+
+  users.users.robashton = {
+    isNormalUser = true;
+    extraGroups = [];
+    createHome = true;
+    home = "/home/robashton";
+    group = "colleagues";
+    hashedPassword = "!";
+
+    openssh.authorizedKeys.keys = [
+      (import ./keys/pubkey-dero.nix)
+    ];
+  };
+
+  users.users.id3as = {
+    isNormalUser = true;
+    extraGroups = [];
+    createHome = true;
+    home = "/home/id3as";
+    group = "colleagues";
+    hashedPassword = "!";
+
+    openssh.authorizedKeys.keys = [
+      (import ./keys/pubkey-id3as.nix)
+    ];
+  };
+
+  # Create a directory for files shared with colleagues, set
+  # the gid bit so that files get created with the group
+  # of the directory, rather than the group of the user
+  systemd.tmpfiles.rules = [
+    "q /run/colleagues 2770 stears colleagues 10d"
+  ];
 
   # This value determines the NixOS release with which your system is to be
   # compatible, in order to avoid breaking some software such as database
