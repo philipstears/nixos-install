@@ -4,8 +4,13 @@
 
 {
   home.packages = with pkgs; [
+
+    # Misc Utils
     bat
     ag
+
+    # Learning
+    anki
   ];
 }
 
