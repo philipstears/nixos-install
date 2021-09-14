@@ -420,7 +420,7 @@ in
     isNormalUser = true;
     extraGroups = [];
     createHome = true;
-    home = "/home/valheim";
+    home = "/var/lib/valheim";
     group = "valheim";
     hashedPassword = "!";
 

@@ -67,6 +67,13 @@
     # ];
   };
 
+  networking.firewall.allowedUDPPorts = [
+    # Valheim
+    2456
+    2457
+    2458
+  ];
+
   networking.firewall.allowedTCPPorts = [
     443 # NGINX (restrictions are handled by NGINX itself)
     80  # NGINX (restrictions are handled by NGINX itself)
@@ -243,4 +250,34 @@
     # Useful for QT things
     hicolor-icon-theme
   ];
+
+  systemd.services.valheim = {
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStartPre = ''
+        ${pkgs.steamcmd}/bin/steamcmd \
+          +login anonymous \
+          +force_install_dir $STATE_DIRECTORY \
+          +app_update 896660 \
+          +quit
+      '';
+      ExecStart = ''
+        ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 ./valheim_server.x86_64 \
+          -name "sthades" \
+          -port 2456 \
+          -world "Exiled" \
+          -password "waffle iron" \
+          -public 1
+      '';
+      Nice = "-5";
+      Restart = "always";
+      StateDirectory = "valheim";
+      User = "valheim";
+      WorkingDirectory = "/var/lib/valheim";
+    };
+    environment = {
+      # linux64 directory is required by Valheim.
+      LD_LIBRARY_PATH = "linux64:${pkgs.glibc}/lib";
+    };
+  };
 }
