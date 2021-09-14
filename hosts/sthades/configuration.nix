@@ -251,6 +251,28 @@
     hicolor-icon-theme
   ];
 
+  # ----------------------------------------------------------------------------
+  # Valheim
+  # ----------------------------------------------------------------------------
+  users.extraGroups.valheim = {};
+
+  users.users.stears.extraGroups = [ "valheim" ];
+  users.users.robashton.extraGroups = [ "valheim" ];
+
+  users.users.valheim = {
+    isNormalUser = true;
+    extraGroups = [];
+    createHome = true;
+    home = "/var/lib/valheim";
+    group = "valheim";
+    hashedPassword = "!";
+
+    openssh.authorizedKeys.keys = [
+      (import ../../common/keys/pubkey-dero.nix)
+      (import ../../common/keys/pubkey-philip-yk.nix)
+    ];
+  };
+
   systemd.services.valheim = {
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
