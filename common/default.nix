@@ -368,9 +368,11 @@ in
 
   users.extraGroups.colleagues = {};
 
+  users.extraGroups.valheim = {};
+
   users.users.stears = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "docker" "wireshark" "video" "vboxusers" "colleagues" ];
+    extraGroups = [ "wheel" "networkmanager" "docker" "wireshark" "video" "vboxusers" "colleagues" "valheim" ];
     createHome = true;
     home = "/home/stears";
     uid = 1000;
@@ -390,7 +392,7 @@ in
 
   users.users.robashton = {
     isNormalUser = true;
-    extraGroups = [];
+    extraGroups = [ "valheim" ];
     createHome = true;
     home = "/home/robashton";
     group = "colleagues";
@@ -414,11 +416,26 @@ in
     ];
   };
 
-  # Create a directory for files shared with colleagues, set
-  # the gid bit so that files get created with the group
-  # of the directory, rather than the group of the user
+  users.users.valheim = {
+    isNormalUser = true;
+    extraGroups = [];
+    createHome = true;
+    home = "/home/valheim";
+    group = "valheim";
+    hashedPassword = "!";
+
+    openssh.authorizedKeys.keys = [
+      (import ./keys/pubkey-dero.nix)
+      (import ./keys/pubkey-philip-yk.nix)
+    ];
+  };
+
   systemd.tmpfiles.rules = [
+    # Create a directory for files shared with colleagues, set
+    # the gid bit so that files get created with the group
+    # of the directory, rather than the group of the user
     "q /run/colleagues 2770 stears colleagues 10d"
+    "q /run/valheim 2770 stears valheim 10d"
   ];
 
   # This value determines the NixOS release with which your system is to be
