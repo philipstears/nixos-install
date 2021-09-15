@@ -6,6 +6,9 @@
 
 { config, pkgs, ... }:
 
+let
+  valheimPassword = import ../../common/private/sources/nixos-install-priv/valheim-password.nix;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -288,7 +291,7 @@
           -name "sthades" \
           -port 2456 \
           -world "Exiled" \
-          -password "waffle iron" \
+          -password "${valheimPassword}" \
           -public 1
       '';
       Nice = "-5";
