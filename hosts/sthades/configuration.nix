@@ -40,6 +40,17 @@ let
       tar -czvf $BACKUP_DIR/$BACKUP_FILE -C $HOME/.config/unity3d/IronGate/Valheim .
     ''
     );
+
+  valheimUpdate =
+    ( pkgs.writeScriptBin "valheim-update" ''
+      #!${pkgs.bash}/bin/bash
+      export PATH=${pkgs.gnutar}/bin:${pkgs.coreutils}/bin:${pkgs.gzip}/bin:$PATH
+      declare -r BACKUP_DIR=$HOME/backups/$(date --utc +"%Y")/$(date --utc +"%m")
+      declare -r BACKUP_FILE=$(date --utc +"%d")T$(date --utc +"%H%M%S").tgz
+      mkdir -p $BACKUP_DIR
+      tar -czvf $BACKUP_DIR/$BACKUP_FILE -C $HOME/.config/unity3d/IronGate/Valheim .
+    ''
+    );
 in
 {
   imports =
@@ -316,8 +327,8 @@ in
 
   systemd.services.valheim = {
     wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      ExecStartPre = ''
+
+    preStart = ''
         ${valheimBackup}/bin/valheim-backup
 
         ${pkgs.steamcmd}/bin/steamcmd \
@@ -326,7 +337,8 @@ in
           +app_update 896660 \
           +quit
       '';
-      ExecStart = ''
+
+    script = ''
         ${pkgs.glibc}/lib/ld-linux-x86-64.so.2 ./valheim_server.x86_64 \
           -name "sthades" \
           -port 2456 \
@@ -334,6 +346,8 @@ in
           -password "${valheimPassword}" \
           -public 1
       '';
+
+    serviceConfig = {
       Nice = "-5";
       Restart = "always";
       StateDirectory = "valheim";
