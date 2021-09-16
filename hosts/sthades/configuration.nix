@@ -26,7 +26,7 @@ let
   valheimRestart =
     ( pkgs.writeScriptBin "valheim-restart" ''
       #!${pkgs.bash}/bin/bash
-      systemctl start valheim
+      systemctl restart valheim
     ''
     );
 
