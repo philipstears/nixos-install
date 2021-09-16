@@ -24,11 +24,22 @@ let
     );
 
   valheimRestart =
-  ( pkgs.writeScriptBin "valheim-restart" ''
-    #!${pkgs.bash}/bin/bash
-    systemctl start valheim
-  ''
-  );
+    ( pkgs.writeScriptBin "valheim-restart" ''
+      #!${pkgs.bash}/bin/bash
+      systemctl start valheim
+    ''
+    );
+
+  valheimBackup =
+    ( pkgs.writeScriptBin "valheim-backup" ''
+      #!${pkgs.bash}/bin/bash
+      export PATH=${pkgs.gnutar}/bin:${pkgs.coreutils}/bin:${pkgs.gzip}/bin:$PATH
+      declare -r BACKUP_DIR=$HOME/backups/$(date --utc +"%Y")/$(date --utc +"%m")
+      declare -r BACKUP_FILE=$(date --utc +"%d")T$(date --utc +"%H%M%S").tgz
+      mkdir -p $BACKUP_DIR
+      tar -czvf $BACKUP_DIR/$BACKUP_FILE -C $HOME/.config/unity3d/IronGate/Valheim .
+    ''
+    );
 in
 {
   imports =
@@ -278,6 +289,7 @@ in
     valheimStop
     valheimStart
     valheimRestart
+    valheimBackup
   ];
 
   # ----------------------------------------------------------------------------
@@ -306,6 +318,8 @@ in
     wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       ExecStartPre = ''
+        ${valheimBackup}/bin/valheim-backup
+
         ${pkgs.steamcmd}/bin/steamcmd \
           +login anonymous \
           +force_install_dir $STATE_DIRECTORY \
@@ -351,5 +365,17 @@ in
           }
         ];
       }
+
+      {
+        groups = [ "valheim" ];
+        runAs = "valheim:valheim";
+        commands =
+          [
+            {
+              command = ''${valheimBackup}/bin/valheim-backup'';
+              options = [ "NOPASSWD" ];
+            }
+          ];
+        }
     ];
 }
