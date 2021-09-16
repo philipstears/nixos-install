@@ -8,6 +8,27 @@
 
 let
   valheimPassword = import ../../common/private/sources/nixos-install-priv/valheim-password.nix;
+
+  valheimStop =
+    ( pkgs.writeScriptBin "valheim-stop" ''
+        #!${pkgs.bash}/bin/bash
+        systemctl stop valheim
+    ''
+    );
+
+  valheimStart =
+    ( pkgs.writeScriptBin "valheim-start" ''
+      #!${pkgs.bash}/bin/bash
+      systemctl start valheim
+    ''
+    );
+
+  valheimRestart =
+  ( pkgs.writeScriptBin "valheim-restart" ''
+    #!${pkgs.bash}/bin/bash
+    systemctl start valheim
+  ''
+  );
 in
 {
   imports =
@@ -252,6 +273,11 @@ in
 
     # Useful for QT things
     hicolor-icon-theme
+
+    # Valheim control
+    valheimStop
+    valheimStart
+    valheimRestart
   ];
 
   # ----------------------------------------------------------------------------
@@ -305,4 +331,25 @@ in
       LD_LIBRARY_PATH = "linux64:${pkgs.glibc}/lib";
     };
   };
+
+  security.sudo.extraRules = [
+    {
+      groups = [ "valheim" ];
+      commands =
+        [
+          {
+            command = ''${valheimStop}/bin/valheim-stop'';
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = ''${valheimStart}/bin/valheim-start'';
+            options = [ "NOPASSWD" ];
+          }
+          {
+            command = ''${valheimRestart}/bin/valheim-restart'';
+            options = [ "NOPASSWD" ];
+          }
+        ];
+      }
+    ];
 }
