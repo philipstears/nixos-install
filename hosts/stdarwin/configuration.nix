@@ -76,7 +76,7 @@
   # Name interfaces
   # NOTE: this changed in 21.05 -
   # https://nixos.org/manual/nixos/stable/index.html#sec-custom-ifnames for details
-  services.udev.initrdRules =
+  services.udev.extraRules =
     ''
       KERNEL=="eth*", ATTR{address}=="a8:5e:45:ce:7c:b0", NAME="onboard"
       KERNEL=="eth*", ATTR{address}=="a0:36:9f:21:7e:90", NAME="main"

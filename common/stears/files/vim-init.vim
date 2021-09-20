@@ -16,10 +16,10 @@ if has('unix')
   " (happens a lot, e.g. with rust)
 
   " Move swp files
-  set directory=~/tmp//
+  set directory=~/tmp/
 
   " Move backup files
-  set backupdir=~/tmp//
+  set backupdir=~/tmp/
 endif
 
 " Philip: we always want a status line
@@ -130,39 +130,22 @@ elseif !empty($userprofile)
 	cd $userprofile
 endif
 
-" " Rust stuff
-" let g:ale_fixers = {
-"       \   'rust': ['rustfmt'],
-"       \}
-"
-" let g:ale_linters = {
-"       \'rust': ['rls'],
-"       \}
-"
-" let g:ale_fix_on_save = 1
-" let g:airline#extensions#ale#enabled = 1
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
-"
-" function! ConfigureDeoplete()
-"   if !empty($RACER_PATH)
-"     let g:deoplete#sources#rust#racer_binary=$RACER_PATH
-"     let g:deoplete#sources#rust#rust_source_path=$RUST_SRC_PATH
-"   endif
-"
-"   call deoplete#custom#option('sources', {
-"   \'rust': ['ale', 'racer'],
-"   \ '_': ['ale'],
-"   \})
-" endfunction
-"
-" autocmd VimEnter * call ConfigureDeoplete()
-"
-" let g:deoplete#enable_at_startup = 1
-
-
 set guioptions-=T " No toolbar
 set guioptions-=t " No tear-off menus
+
+" ==============================================================================
+" Dero: disable Purescript indentation
+" ==============================================================================
+let g:purescript_disable_indent = 1
+autocmd FileType purs setlocal noai nocin nosi inde=
+
+" ==============================================================================
+" Dero: It's dirty, but this is an easy way to resize my windows
+" ==============================================================================
+nnoremap <C-left> :vertical resize -10<cr>
+nnoremap <C-down> :resize +10<cr>
+nnoremap <C-up> :resize -10<cr>
+nnoremap <C-right> :vertical resize +10<cr>
 
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
@@ -191,8 +174,15 @@ endif
 "
 "Gotta do it this way or the theme won't get loaded"
 function! SetDarkTheme()
-  colorscheme tender
   " colorscheme molokai
+  colorscheme tender
+  highlight clear SignColumn
+
+  " TODO: assign proper colours rather than linking to random things
+  highlight link LspDiagnosticsSignError SpellBad
+  highlight link LspDiagnosticsSignWarn SpellCap
+  highlight link LspDiagnosticsSignHint SpellCap
+  highlight link LspDiagnosticsSignInfo SpellRare
 endfunction
 
 " Having a change of scenery
@@ -262,98 +252,25 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Enable exiting insert mode in a terminal by pressing escape
 tnoremap <Esc> <C-\><C-n>
 
-" ------------------------------------------------------------------------------
-" coc settings
-" ------------------------------------------------------------------------------
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
+" ----------------------------------------------------------------------------
+" LSP config
+" ----------------------------------------------------------------------------
+source ~/.config/nvim/init-extra.lua
 set updatetime=300
 
-" Show signs in the number column (sadly not in the neovim I have)
-" set signcolumn=number
+" Format on save
+augroup AutoActionsLsp
+  autocmd!
+  autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
+augroup END
 
-" Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
 
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> <c-c><c-k> <Plug>(coc-diagnostic-prev)
-nmap <silent> <c-c><c-j> <Plug>(coc-diagnostic-next)
+" Avoid showing message extra message when using completion
+set shortmess+=c
 
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" Reserve space for the errors
+set signcolumn=auto
 
-" Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
-  else
-    execute '!' . &keywordprg . " " . expand('<cword>')
-  endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
-
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Show actions
-nnoremap <silent><nowait> <space>t  :<C-u>CocAction<cr>
-
-" Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-
-" " ------------------------------------------------------------------------------
-" " TSX Colors (from https://github.com/peitalin/vim-jsx-typescript)
-" " ------------------------------------------------------------------------------
-" " dark red
-" hi tsxTagName guifg=#E06C75
-" hi tsxComponentName guifg=#E06C75
-" hi tsxCloseComponentName guifg=#E06C75
-"
-" " orange
-" hi tsxCloseString guifg=#F99575
-" hi tsxCloseTag guifg=#F99575
-" hi tsxCloseTagName guifg=#F99575
-" hi tsxAttributeBraces guifg=#F99575
-" hi tsxEqual guifg=#F99575
-"
-" " yellow
-" hi tsxAttrib guifg=#F8BD7F cterm=italic
-"
-" " light-grey
-" hi tsxTypeBraces guifg=#999999
-"
-" " dark-grey
-" hi tsxTypes guifg=#666666
+let g:dap_virtual_text = v:true
