@@ -183,6 +183,13 @@ function! SetDarkTheme()
   highlight link LspDiagnosticsSignWarn SpellCap
   highlight link LspDiagnosticsSignHint SpellCap
   highlight link LspDiagnosticsSignInfo SpellRare
+
+  " Colours from molokai for floating windows,
+  " because tender's are unreadable
+  hi Pmenu           guifg=#66D9EF guibg=#000000
+  hi PmenuSel                      guibg=#808080
+  hi PmenuSbar                     guibg=#080808
+  hi PmenuThumb      guifg=#66D9EF
 endfunction
 
 " Having a change of scenery
