@@ -274,3 +274,6 @@ set shortmess+=c
 set signcolumn=auto
 
 let g:dap_virtual_text = v:true
+
+" Rainbow parens
+au FileType rust call rainbow#load()

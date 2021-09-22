@@ -87,6 +87,7 @@ in
 
       # Rust
       (pluginGit "64af19183e51911886f3fc82b23cb2430ababcaf" "robashton/rust-tools.nvim")
+      standardPlugins.vim-toml
 
       # Completion
       (plugin "hrsh7th/nvim-cmp")
@@ -96,8 +97,13 @@ in
       (plugin "hrsh7th/cmp-buffer")
       (plugin "hrsh7th/vim-vsnip")
 
-      # Rust Bits
-      standardPlugins.vim-toml
+      # Completion
+      (plugin "hrsh7th/nvim-cmp")
+
+      # Rainbow parens
+      # (plugin "p00f/nvim-ts-rainbow")
+      # (plugin "luochen1990/rainbow")
+      (plugin "frazrepo/vim-rainbow")
 
       # Colour Schemes
       customPlugins.vim-colorschemes
