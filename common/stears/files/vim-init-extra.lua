@@ -1,6 +1,6 @@
 local nvim_lsp = require 'lspconfig'
 
-local signs = { Error = "❌", Warn = "⚠️", Hint = "🎬", Info = "ⓘ " }
+local signs = { Error = "❌", Warning = "⚠️", Hint = "🎬", Info = "ⓘ " }
 
 for type, icon in pairs(signs) do
   local hl = "LspDiagnosticsSign" .. type

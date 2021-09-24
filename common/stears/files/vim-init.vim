@@ -180,7 +180,7 @@ function! SetDarkTheme()
 
   " TODO: assign proper colours rather than linking to random things
   highlight link LspDiagnosticsSignError SpellBad
-  highlight link LspDiagnosticsSignWarn SpellCap
+  highlight link LspDiagnosticsSignWarning SpellCap
   highlight link LspDiagnosticsSignHint SpellCap
   highlight link LspDiagnosticsSignInfo SpellRare
 
