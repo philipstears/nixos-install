@@ -12,12 +12,12 @@ let
   private = import ./private { inherit pkgs; };
 
   # Whichever version discord says is latest
-  discord_latest_version = "0.0.15";
+  discord_latest_version = "0.0.16";
   discord_latest = pkgs.discord.overrideAttrs (oldAttrs: {
     version = discord_latest_version;
     src = pkgs.fetchurl {
       url = "https://dl.discordapp.net/apps/linux/${discord_latest_version}/discord-${discord_latest_version}.tar.gz";
-      sha256 = "0pn2qczim79hqk2limgh88fsn93sa8wvana74mpdk5n6x5afkvdd";
+      sha256 = "1s9qym58cjm8m8kg3zywvwai2i3adiq6sdayygk2zv72ry74ldai";
     };
   });
 
