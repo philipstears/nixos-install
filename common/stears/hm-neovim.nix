@@ -16,13 +16,13 @@ let
   };
   plugin = pluginGit "HEAD";
 
-  nixpkgs_latest =
-    import (builtins.fetchGit {
-      name = "nixpkgs-pinned";
-      url = "https://github.com/NixOS/nixpkgs.git";
-      rev = "43152ffb579992dc6e0e55781436711f7bdfab1e";
-      ref = "master";
-    }) {};
+  # nixpkgs_latest =
+  #   import (builtins.fetchGit {
+  #     name = "nixpkgs-pinned";
+  #     url = "https://github.com/NixOS/nixpkgs.git";
+  #     rev = "43152ffb579992dc6e0e55781436711f7bdfab1e";
+  #     ref = "master";
+  #   }) {};
 
 in
 {
@@ -30,14 +30,14 @@ in
     universal-ctags
   ];
 
-  home.file.".config/nvim/codelldb".source = nixpkgs_latest.vscode-extensions.vadimcn.vscode-lldb;
+  home.file.".config/nvim/codelldb".source = pkgs.vscode-extensions.vadimcn.vscode-lldb;
   home.file.".config/nvim/init-extra.lua".source = ./files/vim-init-extra.lua;
 
   programs.neovim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
-    package = nixpkgs_latest.neovim-unwrapped;
+    # package = nixpkgs_latest.neovim-unwrapped;
     plugins = [
 
       # Global Plugins
@@ -90,9 +90,6 @@ in
       (plugin "hrsh7th/cmp-path")
       (plugin "hrsh7th/cmp-buffer")
       (plugin "hrsh7th/vim-vsnip")
-
-      # Completion
-      (plugin "hrsh7th/nvim-cmp")
 
       # Rainbow parens
       # (plugin "p00f/nvim-ts-rainbow")

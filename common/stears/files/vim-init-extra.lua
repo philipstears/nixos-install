@@ -39,7 +39,7 @@ local opts = {
     },
     tools = {
         autoSetHints = true,
-        hover_with_actions = true,
+        -- hover_with_actions = true,
         runnables = {
             use_telescope = true
         },

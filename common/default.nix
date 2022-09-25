@@ -5,8 +5,8 @@
 let
   home-manager = builtins.fetchGit {
     url = "https://github.com/nix-community/home-manager.git";
-    rev = "148d85ee8303444fb0116943787aa0b1b25f94df";
-    ref = "release-21.05";
+    rev = "4a3d01fb53f52ac83194081272795aa4612c2381";
+    ref = "release-22.05";
   };
 
   private = import ./private { inherit pkgs; };
@@ -66,7 +66,7 @@ in
     htop iotop iftop
     lftp
     tree
-    bashCompletion
+    bash-completion
     wireshark
     wireshark-cli
     iperf
@@ -80,7 +80,7 @@ in
     awscli
     unzip
     dnsutils # dig
-    manpages
+    man-pages
     pciutils usbutils
     fwupd
     shellcheck
@@ -107,7 +107,7 @@ in
     keepassxc
 
     # Desktop Env
-    gnome3.dconf # for the few gnome things I use, such as seahorse
+    dconf # for the few gnome things I use, such as seahorse
     gnome3.dconf-editor
     gnome3.gnome-screenshot
     mate.mate-calc
@@ -280,7 +280,7 @@ in
   services.openssh = {
     enable = true;
     passwordAuthentication = false;
-    challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
     openFirewall = false;
   };
 

@@ -7,7 +7,7 @@
 
     # Misc Utils
     bat
-    ag
+    silver-searcher
 
     # Learning
     anki
