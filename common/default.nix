@@ -5,8 +5,8 @@
 let
   home-manager = builtins.fetchGit {
     url = "https://github.com/nix-community/home-manager.git";
-    rev = "4a3d01fb53f52ac83194081272795aa4612c2381";
-    ref = "release-22.05";
+    rev = "f9edbedaf015013eb35f8caacbe0c9666bbc16af";
+    ref = "release-22.11";
   };
 
   private = import ./private { inherit pkgs; };

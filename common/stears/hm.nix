@@ -27,7 +27,12 @@ let
 
   combined = builtins.foldl' mergeResult emptyAcc moduleResults;
 
-  emptyAcc = { home = { packages = []; }; };
+  emptyAcc = {
+    home = {
+      stateVersion = "18.09";
+      packages = [];
+    };
+  };
 
   # This is a deep set merge, right-hand-side wins,
   # it's not perfect but it should do
