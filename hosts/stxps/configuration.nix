@@ -18,6 +18,11 @@
       ./stears
     ];
 
+  # Enable experimental features
+  nix.settings.experimental-features = [
+    "nix-command" "flakes"
+  ];
+
   # Use the systemd-boot EFI boot loader - need
   # this because we're doing whole-disk encryption.
   boot.loader.systemd-boot.enable = true;
